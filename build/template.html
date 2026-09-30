@@ -1,0 +1,1646 @@
+<title>CU Boulder Wayfinder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,600;0,800;1,400&display=swap">
+<style>
+:root {
+  --ground: #f5f3f0;
+  --surface: #ffffff;
+  --ink: #1d1916;
+  --muted: #5b524b;
+  --line: #d8d1c9;
+  --accent: #9e3419;
+  --accent-ink: #ffffff;
+  --accent-soft: #f6e3dc;
+  --stone: #c4a276;
+  --focus: #1a56c4;
+  --dot: #a79c92;
+  --sans: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "Atkinson Hyperlegible Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #161311;
+    --surface: #211d1a;
+    --ink: #f1ebe4;
+    --muted: #b8ada3;
+    --line: #3b3430;
+    --accent: #f28e6c;
+    --accent-ink: #1a0f0a;
+    --accent-soft: #3a231b;
+    --stone: #8c7355;
+    --focus: #8fb4ff;
+    --dot: #6e645c;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #161311;
+  --surface: #211d1a;
+  --ink: #f1ebe4;
+  --muted: #b8ada3;
+  --line: #3b3430;
+  --accent: #f28e6c;
+  --accent-ink: #1a0f0a;
+  --accent-soft: #3a231b;
+  --stone: #8c7355;
+  --focus: #8fb4ff;
+  --dot: #6e645c;
+}
+html.text-lg { font-size: 118.75%; }
+html.text-xl { font-size: 137.5%; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  padding-inline: 16px;
+}
+.wrap { max-width: 56rem; margin-inline: auto; }
+a { color: var(--accent); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { line-height: 1.2; text-wrap: balance; margin: 0; }
+h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: 1.3rem; font-weight: 800; }
+h3 { font-size: 1.05rem; font-weight: 600; }
+h1:focus, h2:focus { outline: none; }
+h1:focus-visible { outline: 3px solid var(--focus); }
+p { margin: 0; max-width: 68ch; }
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip {
+  position: absolute; left: 16px; top: -100px; z-index: 10;
+  background: var(--accent); color: var(--accent-ink); padding: 0.6rem 1rem; border-radius: 6px; font-weight: 600;
+}
+.skip:focus { top: calc(env(safe-area-inset-top, 0px) + 8px); }
+
+/* Header */
+.site-header { border-bottom: 1px solid var(--line); padding-block: 1rem 0; }
+.brand-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; }
+.brand { font-weight: 800; font-size: 1.2rem; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 0.55rem; }
+.brand svg { flex: none; }
+.tag { font-size: 0.85rem; color: var(--muted); }
+.site-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.25rem; margin: 0.75rem 0 0; padding: 0; }
+.site-nav a {
+  display: inline-block; padding: 0.55rem 0.9rem; border-radius: 8px 8px 0 0; color: var(--ink);
+  text-decoration: none; font-weight: 600; border-bottom: 3px solid transparent; min-height: 44px; box-sizing: border-box;
+}
+.site-nav a:hover { background: var(--accent-soft); }
+.site-nav a[aria-current="page"] { border-bottom-color: var(--accent); }
+
+.start-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem;
+  margin-top: 1rem; padding: 0.6rem 0.9rem; background: var(--accent-soft); border-radius: var(--radius); font-size: 0.95rem;
+}
+.start-bar strong { font-weight: 600; }
+
+main { padding-block: 1.75rem 3rem; display: grid; gap: 2rem; }
+section { display: grid; gap: 0.9rem; }
+.lead { font-size: 1.2rem; line-height: 1.55; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+
+/* Breadcrumb */
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.25rem; margin: 0; padding: 0; font-size: 0.95rem; }
+.crumbs li + li::before { content: "›"; color: var(--muted); margin-inline: 0.35rem; }
+.crumbs [aria-current] { color: var(--muted); }
+
+/* Forms */
+.field { display: grid; gap: 0.35rem; }
+label, legend { font-weight: 600; }
+.hint { font-size: 0.92rem; color: var(--muted); }
+input[type="search"], input[type="text"], select {
+  font: inherit; color: var(--ink); background: var(--surface);
+  border: 2px solid var(--muted); border-radius: 8px; padding: 0.6rem 0.75rem; min-height: 48px; box-sizing: border-box; width: 100%;
+}
+input[type="search"] { font-size: 1.15rem; }
+.row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: end; }
+.row > .field { flex: 1 1 14rem; }
+button, .btn {
+  font: inherit; font-weight: 600; cursor: pointer; min-height: 44px; box-sizing: border-box;
+  border-radius: 8px; padding: 0.55rem 1rem; border: 2px solid var(--accent);
+  background: var(--accent); color: var(--accent-ink); text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
+}
+button.secondary, .btn.secondary { background: transparent; color: var(--accent); }
+button.link { background: none; border: 0; padding: 0; min-height: 0; color: var(--accent); text-decoration: underline; font-weight: 600; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+fieldset { border: 1px solid var(--line); border-radius: var(--radius); padding: 0.8rem 1rem 1rem; margin: 0; display: grid; gap: 0.5rem; }
+.choice { display: flex; align-items: center; gap: 0.6rem; min-height: 40px; font-weight: 400; }
+.choice input { width: 1.25rem; height: 1.25rem; accent-color: var(--accent); }
+
+/* Layer list */
+.layers { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 0.75rem; }
+.layers a {
+  display: grid; gap: 0.25rem; height: 100%; box-sizing: border-box;
+  padding: 1rem 1.1rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  color: var(--ink); text-decoration: none;
+}
+.layers a:hover { border-color: var(--accent); }
+.layers .name { font-weight: 800; font-size: 1.1rem; color: var(--accent); }
+.layers .count { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); }
+.layers .blurb { font-size: 0.95rem; color: var(--muted); }
+
+/* Place list */
+.places { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.places li { border-bottom: 1px solid var(--line); }
+.places a { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.15rem 1rem; padding: 0.7rem 0.25rem; text-decoration: none; color: var(--ink); min-height: 44px; box-sizing: border-box; }
+.places a:hover { background: var(--accent-soft); }
+.places .pn { font-weight: 600; color: var(--accent); }
+.places .pm { color: var(--muted); font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+.count-note { font-size: 0.95rem; color: var(--muted); }
+
+details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+details > summary { cursor: pointer; padding: 0.8rem 1rem; font-weight: 600; min-height: 44px; box-sizing: border-box; }
+details[open] > summary { border-bottom: 1px solid var(--line); }
+details > .inner { padding: 0.5rem 1rem 1rem; display: grid; gap: 0.75rem; }
+
+/* Place detail */
+.place-head { display: grid; gap: 0.5rem; }
+.place-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+@media (min-width: 52rem) { .place-grid { grid-template-columns: minmax(0, 1fr) 18rem; } }
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1.25rem; margin: 0; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.code { font-family: var(--mono); font-weight: 600; letter-spacing: 0.04em; }
+.about { display: grid; gap: 0.75rem; max-width: 68ch; }
+.about ul { margin: 0; padding-left: 1.3rem; }
+.about p:empty { display: none; }
+.photo-desc { border-left: 3px solid var(--stone); padding-left: 1rem; font-style: italic; max-width: 68ch; }
+.plot { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 1rem); align-self: start; display: grid; gap: 0.5rem; }
+.plot svg { width: 100%; height: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: block; }
+.plot figcaption { font-size: 0.85rem; color: var(--muted); }
+.near-list li a .pm { font-family: var(--mono); font-size: 0.88rem; }
+.help ol, .help ul { margin: 0; padding-left: 1.3rem; display: grid; gap: 0.4rem; max-width: 68ch; }
+kbd { font-family: var(--mono); font-size: 0.85em; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 0.3em; background: var(--surface); }
+/* Directions */
+.route-form { display: grid; gap: 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; }
+.combo { position: relative; display: grid; gap: 0.35rem; }
+.combo [role="listbox"] {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 5; margin: 4px 0 0; padding: 0.25rem; list-style: none;
+  background: var(--surface); border: 2px solid var(--muted); border-radius: 8px; max-height: 18rem; overflow-y: auto;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+}
+.combo [role="option"] { padding: 0.55rem 0.7rem; border-radius: 6px; cursor: pointer; display: grid; }
+.combo [role="option"] .om { font-size: 0.88rem; color: var(--muted); }
+.combo [role="option"][aria-selected="true"] { background: var(--accent); color: var(--accent-ink); }
+.combo [role="option"][aria-selected="true"] .om { color: var(--accent-ink); }
+.combo [role="option"]:hover:not([aria-selected="true"]) { background: var(--accent-soft); }
+input[aria-invalid="true"] { border-color: var(--accent); }
+.error { color: var(--accent); font-weight: 600; }
+.route-summary { font-size: 1.2rem; line-height: 1.5; }
+.steps { border-top: 1px solid var(--line); }
+.step { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: 0.75rem; padding: 0.9rem 0.25rem; border-bottom: 1px solid var(--line); max-width: 70ch; }
+.step-badge {
+  font-family: var(--mono); font-weight: 600; font-size: 0.9rem; color: var(--accent);
+  border: 2px solid var(--accent); border-radius: 50%; width: 1.9rem; height: 1.9rem; display: grid; place-items: center; box-sizing: border-box;
+}
+.step-stairs .step-badge { background: var(--accent); color: var(--accent-ink); }
+.step h4 { margin: 0; font-size: 1.05rem; line-height: 1.45; font-weight: 400; }
+.step .step-num { display: block; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.step .step-text { font-weight: 600; }
+.orient { margin: 0; padding: 0.9rem 1rem 0.9rem 2.1rem; display: grid; gap: 0.45rem; background: var(--accent-soft); border-radius: var(--radius); max-width: 68ch; }
+.step .along { margin: 0.5rem 0 0; padding-left: 1.1rem; display: grid; gap: 0.3rem; font-size: 0.95rem; color: var(--muted); }
+.route-options { background: var(--surface); }
+.route-options .ropt, .rs .ropt { display: grid; gap: 0.1rem; }
+.route-options .ropt .hint, .rs-grid .ropt .hint { padding-left: 1.85rem; }
+.rs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+details.rs > summary span { font-weight: 400; color: var(--muted); }
+.route-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+@media (min-width: 52rem) { .route-grid { grid-template-columns: minmax(0, 1fr) 18rem; } }
+.site-footer { border-top: 1px solid var(--line); padding-block: 1.25rem 2rem; font-size: 0.9rem; color: var(--muted); display: grid; gap: 0.4rem; }
+@media (max-width: 30rem) { h1 { font-size: 1.65rem; } .facts { grid-template-columns: 1fr; gap: 0 0; } .facts dd { margin-bottom: 0.5rem; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+
+<a class="skip" href="#main" id="skip-link">Skip to main content</a>
+<div class="wrap">
+  <header class="site-header">
+    <div class="brand-row">
+      <a class="brand" href="#home">
+        <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" focusable="false"><path d="M13 2 L24 22 H2 Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M8 22 L13 12 L18 22" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round"/></svg>
+        CU Boulder Wayfinder
+      </a>
+      <span class="tag">Unofficial, screen-reader-first campus map</span>
+    </div>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="#home" data-nav="home">Maps</a></li>
+        <li><a href="#search" data-nav="search">Search</a></li>
+        <li><a href="#route" data-nav="route">Directions</a></li>
+        <li><a href="#settings" data-nav="settings">Settings and help</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id="start-bar-slot"></div>
+  <main id="main" tabindex="-1"></main>
+  <footer class="site-footer">
+    <p>Place names, descriptions, photo descriptions, and locations come from the official CU Boulder interactive campus map, pulled on September 29, 2026. Walking routes use path data © OpenStreetMap contributors (ODbL). Distances on place pages are straight-line estimates.</p>
+    <p>This is an independent accessibility project, not a university website. For the official map, visit <a href="https://www.colorado.edu/map" target="_blank" rel="noopener">colorado.edu/map</a>.</p>
+  </footer>
+</div>
+<div id="announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<script type="application/json" id="map-data">/*DATA*/</script>
+<script type="application/json" id="path-data">/*PATHS*/</script>
+<script type="application/json" id="door-data">/*DOORS*/</script>
+<script>
+(function () {
+  "use strict";
+
+  // ---------- Data ----------
+  const RAW = JSON.parse(document.getElementById("map-data").textContent);
+  const cats = new Map();
+  RAW.cats.forEach(c => cats.set(c.id, { id: c.id, name: c.name, parent: c.parent, children: [], places: [] }));
+  cats.forEach(c => { if (cats.has(c.parent)) cats.get(c.parent).children.push(c); });
+  const roots = RAW.cats.filter(c => c.parent === 0).map(c => cats.get(c.id));
+
+  // The same building often appears in several layers; merge those into one place.
+  const places = [];
+  const byKey = new Map();
+  const byId = new Map();
+  RAW.locs.forEach(l => {
+    const key = l.n.toLowerCase() + "|" + l.la.toFixed(4) + "|" + l.ln.toFixed(4);
+    let p = byKey.get(key);
+    if (!p) {
+      p = { id: l.id, n: l.n, la: l.la, ln: l.ln, a: l.a || "", code: l.code || "", num: l.num || "", d: l.d || "", img: l.img || "", k: l.k || "", cats: [] };
+      byKey.set(key, p);
+      places.push(p);
+    } else {
+      if ((l.d || "").length > p.d.length) p.d = l.d;
+      if (!p.img && l.img) p.img = l.img;
+      if (!p.a && l.a) p.a = l.a;
+      if (!p.num && l.num) p.num = l.num;
+      if (l.k) p.k += "," + l.k;
+    }
+    if (!p.cats.includes(l.c)) p.cats.push(l.c);
+    byId.set(l.id, p);
+    const c = cats.get(l.c);
+    if (c && !c.places.includes(p)) c.places.push(p);
+  });
+  places.forEach(p => { p.hay = (p.n + " " + p.code + " " + p.a + " " + p.k + " " + p.cats.map(id => cats.get(id).name).join(" ")).toLowerCase(); });
+
+  const findCat = (name, under) => {
+    for (const c of cats.values()) {
+      if (c.name.toLowerCase() === name.toLowerCase() && (!under || rootOf(c).name === under)) return c;
+    }
+    return null;
+  };
+  function rootOf(c) { while (cats.has(c.parent)) c = cats.get(c.parent); return c; }
+  function subtree(c) { const out = [c]; c.children.forEach(ch => out.push(...subtree(ch))); return out; }
+  function placesIn(c) { const s = new Set(); subtree(c).forEach(x => x.places.forEach(p => s.add(p))); return [...s]; }
+  function pathOf(c) { const out = []; while (c) { out.unshift(c); c = cats.get(c.parent); } return out; }
+
+  const buildingRoot = roots.find(r => r.name === "Buildings");
+  const buildingCatIds = new Set(buildingRoot ? subtree(buildingRoot).map(c => c.id) : []);
+  const isBuilding = p => p.cats.some(id => buildingCatIds.has(id));
+  const buildings = places.filter(isBuilding).sort(byName);
+  function byName(a, b) { return a.n.localeCompare(b.n, "en", { sensitivity: "base" }); }
+
+  const LAYER_BLURBS = {
+    "Buildings": "Every campus building, grouped by use: academic, offices, athletics, housing, libraries, and performance venues.",
+    "Parking": "Lots and spaces by type, including accessible spaces, EV charging, motorcycle, short-term pay, and loading zones.",
+    "Bus, Bike, E-Scooter, Car Share": "Campus bus routes, RTD stops, bike share and repair stations, scooter zones, and Zipcar spots.",
+    "Student Academic Resources": "Computer labs, tutoring, book drops, and study spaces in libraries and student centers.",
+    "Inclusive Resources": "Identity and community spaces, lactation rooms, and all-gender bathrooms.",
+    "Services": "Dining, shopping, an ATM, shipping, student services, and outdoor event spaces.",
+    "Health & Safety": "Medical care, after-hours emergency care, police, and EpiPen locations.",
+    "Outdoor Recreation": "Campus rec fields, plus hiking spots, parks, landmarks, and ski resorts around Colorado.",
+    "Accessibility": "Hearing loop locations and accessible building entrances."
+  };
+
+  // Categories used for the "closest services" list on each place.
+  const SERVICE_CATS = [
+    ["Accessible parking", findCat("Accessible", "Parking")],
+    ["RTD bus stop", findCat("RTD Bus Stops")],
+    ["Bike share", findCat("Bike Share")],
+    ["Dining or shopping", findCat("Dining & Shopping")],
+    ["Computer lab", findCat("Computer Labs")],
+    ["All-gender bathroom", findCat("All Gender Bathrooms")],
+    ["Lactation room", findCat("Lactation Rooms")]
+  ].filter(x => x[1]).map(([label, c]) => ({ label, list: placesIn(c) }));
+
+  // ---------- Settings (per-viewer, saved in this browser when allowed) ----------
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("cuwf:" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem("cuwf:" + k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
+  };
+  const settings = {
+    units: store.get("units", "imperial"),
+    text: store.get("text", "normal"),
+    start: store.get("start", null)
+  };
+  function applyText() {
+    document.documentElement.classList.toggle("text-lg", settings.text === "large");
+    document.documentElement.classList.toggle("text-xl", settings.text === "xlarge");
+  }
+  applyText();
+  const startPlace = () => (settings.start != null && byId.get(settings.start)) || null;
+
+  // ---------- Geography ----------
+  const QUAD = { la: 40.00905, ln: -105.27195, n: "Norlin Quad" };
+  const CAMPUS = { la: 40.0076, ln: -105.2659 };
+  const R = 6371000, rad = x => x * Math.PI / 180;
+  function dist(a, b) {
+    const dLa = rad(b.la - a.la), dLn = rad(b.ln - a.ln);
+    const h = Math.sin(dLa / 2) ** 2 + Math.cos(rad(a.la)) * Math.cos(rad(b.la)) * Math.sin(dLn / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+  const DIRS = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"];
+  function dir(a, b) {
+    const y = Math.sin(rad(b.ln - a.ln)) * Math.cos(rad(b.la));
+    const x = Math.cos(rad(a.la)) * Math.sin(rad(b.la)) - Math.sin(rad(a.la)) * Math.cos(rad(b.la)) * Math.cos(rad(b.ln - a.ln));
+    const brg = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+    return DIRS[Math.round(brg / 45) % 8];
+  }
+  function fmtDist(m) {
+    if (settings.units === "metric") {
+      if (m < 1000) return Math.max(10, Math.round(m / 10) * 10) + " meters";
+      const km = m / 1000; return (km >= 10 ? Math.round(km) : km.toFixed(1)) + " kilometers";
+    }
+    const ft = m * 3.28084;
+    if (ft < 1000) return Math.max(50, Math.round(ft / 50) * 50) + " feet";
+    const mi = ft / 5280;
+    const s = mi >= 10 ? String(Math.round(mi)) : mi.toFixed(1);
+    return s + (s === "1.0" ? " mile" : " miles");
+  }
+  function walk(m) {
+    if (m > 4000) return "";
+    const min = Math.max(1, Math.round(m * 1.3 / 80));
+    return "about " + min + (min === 1 ? " minute" : " minutes") + " on foot";
+  }
+  function area(p) {
+    if (p.la > 40.04 || p.la < 39.97 || p.ln < -105.30 || p.ln > -105.20) return "far";
+    if (p.la < 40.0035 && p.ln > -105.2575) return "Williams Village";
+    if (p.ln > -105.2575) return "East Campus";
+    if (p.la > 39.998 && p.la < 40.0135 && p.ln > -105.2790) return "Main Campus";
+    return "near";
+  }
+  function nearest(p, list, n, skipSame) {
+    return list
+      .filter(q => q !== p && (!skipSame || dist(p, q) > 8))
+      .map(q => ({ q, m: dist(p, q) }))
+      .sort((a, b) => a.m - b.m)
+      .slice(0, n);
+  }
+  function relPhrase(m, from, to) { return m < 25 ? "at the same spot" : fmtDist(m) + " " + dir(from, to); }
+
+  // Plain-language "where is it" description, written for listening.
+  function whereText(p) {
+    const ar = area(p);
+    const parts = [];
+    if (ar === "far") {
+      parts.push(p.n + " is off campus, about " + fmtDist(dist(CAMPUS, p)) + " " + dir(CAMPUS, p) + " of the CU Boulder campus.");
+      return parts;
+    }
+    const where = { "Main Campus": "on Main Campus", "East Campus": "on East Campus", "Williams Village": "at Williams Village, the residential area south of East Campus", "near": "just off campus in Boulder" }[ar];
+    parts.push(p.n + " is " + where + ".");
+    if (ar === "Main Campus" && isBuilding(p)) {
+      const m = dist(QUAD, p);
+      parts.push(m < 60 ? "It sits right on Norlin Quad, the historic lawn at the center of Main Campus." : "It is " + fmtDist(m) + " " + dir(QUAD, p) + " of the center of Norlin Quad.");
+    }
+    const nb = nearest(p, buildings, 1, true)[0];
+    if (nb) {
+      if (isBuilding(p)) parts.push("The closest building is " + nb.q.n + ", " + fmtDist(nb.m) + " to the " + dir(p, nb.q) + ".");
+      else if (nb.m < 30) parts.push("It is at or inside " + nb.q.n + ".");
+      else parts.push("It is " + fmtDist(nb.m) + " " + dir(nb.q, p) + " of " + nb.q.n + ".");
+    }
+    return parts;
+  }
+  function fromStartText(p) {
+    const s = startPlace();
+    if (!s || s === p) return "";
+    const m = dist(s, p);
+    const w = walk(m);
+    return "From your starting point, " + s.n + ", it is " + relPhrase(m, s, p) + (w ? ", " + w : "") + ".";
+  }
+
+  // ---------- Helpers ----------
+  const esc = s => String(s).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+  const main = document.getElementById("main");
+  const announcer = document.getElementById("announcer");
+  function announce(msg) {
+    announcer.textContent = "";
+    setTimeout(() => { announcer.textContent = msg; }, 60);
+  }
+  const plural = (n, one, many) => n + " " + (n === 1 ? one : (many || one + "s"));
+  function placeMeta(p, opts) {
+    const bits = [];
+    if (opts && opts.cat) bits.push(cats.get(p.cats[0]).name);
+    const s = startPlace();
+    if (s && s !== p) bits.push(relPhrase(dist(s, p), s, p));
+    return bits.join(", ");
+  }
+  function placeItem(p, opts) {
+    const meta = opts && opts.meta != null ? opts.meta : placeMeta(p, opts);
+    return '<li><a href="#p-' + p.id + '"><span class="pn">' + esc(p.n) + "</span>" +
+      (meta ? '<span class="pm"><span class="sr-only">, </span>' + esc(meta) + "</span>" : "") + "</a></li>";
+  }
+  function sortPlaces(list, mode) {
+    const s = startPlace();
+    if (mode === "near" && s) return list.slice().sort((a, b) => dist(s, a) - dist(s, b));
+    return list.slice().sort(byName);
+  }
+  function crumbs(items) {
+    return '<nav class="crumbs" aria-label="Breadcrumb"><ol>' + items.map((it, i) =>
+      i === items.length - 1 ? '<li><span aria-current="page">' + esc(it[0]) + "</span></li>" : '<li><a href="' + it[1] + '">' + esc(it[0]) + "</a></li>"
+    ).join("") + "</ol></nav>";
+  }
+
+  function renderStartBar() {
+    const slot = document.getElementById("start-bar-slot");
+    const s = startPlace();
+    if (!s) { slot.innerHTML = ""; return; }
+    slot.innerHTML = '<div class="start-bar" role="region" aria-label="Starting point"><p>Distances are measured from <strong>' + esc(s.n) +
+      '</strong>.</p><button type="button" class="link" id="clear-start">Clear starting point</button></div>';
+    document.getElementById("clear-start").addEventListener("click", () => {
+      setStart(null);
+      announce("Starting point cleared. Distances are hidden.");
+      document.getElementById("main").focus();
+    });
+  }
+  function setStart(id) {
+    settings.start = id;
+    store.set("start", id);
+    renderStartBar();
+    route(true);
+  }
+
+  // ---------- Views ----------
+  let searchQuery = "";
+
+  function viewHome(focusSearch) {
+    document.title = "Maps and search · CU Boulder Wayfinder";
+    main.innerHTML =
+      '<section aria-labelledby="h-home"><p class="eyebrow">Campus maps</p><h1 id="h-home" tabindex="-1">Find your way around CU Boulder</h1>' +
+      '<p class="lead">Search for a building or place, or browse one of the ' + roots.length + " official campus map layers below. Every place has a written description of where it is, what is nearby, and what it looks like.</p></section>" +
+      '<section aria-labelledby="h-search" role="search"><h2 id="h-search">Search all ' + places.length.toLocaleString() + ' places</h2>' +
+      '<form id="search-form" class="field" novalidate><label for="q">Building name, code, department, or service</label>' +
+      '<p class="hint" id="q-hint">Try "Norlin", "ENVD", "physics", or "lactation". Results update as you type.</p>' +
+      '<input type="search" id="q" name="q" autocomplete="off" spellcheck="false" aria-describedby="q-hint" value="' + esc(searchQuery) + '"></form>' +
+      '<div id="results"></div></section>' +
+      '<section aria-labelledby="h-layers"><h2 id="h-layers">Browse the campus maps</h2><ul class="layers">' +
+      roots.map(r => {
+        const n = placesIn(r).length;
+        return '<li><a href="#m-' + r.id + '"><span class="name">' + esc(r.name) + '</span><span class="count">' + plural(n, "place") + "</span>" +
+          (LAYER_BLURBS[r.name] ? '<span class="blurb">' + esc(LAYER_BLURBS[r.name]) + "</span>" : "") + "</a></li>";
+      }).join("") + "</ul></section>";
+
+    const q = document.getElementById("q");
+    const form = document.getElementById("search-form");
+    let timer;
+    q.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => runSearch(q.value, true), 350); });
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      clearTimeout(timer);
+      runSearch(q.value, true);
+      const h = document.getElementById("h-results");
+      if (h) h.focus();
+    });
+    if (searchQuery) runSearch(searchQuery, false);
+    return focusSearch ? q : null;
+  }
+
+  function search(query) {
+    const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    if (!terms.length) return [];
+    const ql = query.toLowerCase().trim();
+    return places
+      .filter(p => terms.every(t => p.hay.includes(t)))
+      .map(p => {
+        const nl = p.n.toLowerCase();
+        let score = 4;
+        if (p.code.toLowerCase() === ql) score = 0;
+        else if (nl.startsWith(ql)) score = 1;
+        else if (nl.includes(ql)) score = 2;
+        else if (terms.every(t => nl.includes(t))) score = 3;
+        return { p, score: score + (isBuilding(p) ? 0 : 0.5) };
+      })
+      .sort((a, b) => a.score - b.score || byName(a.p, b.p))
+      .map(x => x.p);
+  }
+  function runSearch(value, speak) {
+    searchQuery = value;
+    const box = document.getElementById("results");
+    if (!box) return;
+    const q = value.trim();
+    if (!q) { box.innerHTML = ""; if (speak) announce("Search cleared."); return; }
+    const res = search(q);
+    const shown = res.slice(0, 60);
+    box.innerHTML = '<h3 id="h-results" tabindex="-1">' + (res.length ? plural(res.length, "result") + ' for “' + esc(q) + '”' : 'No results for “' + esc(q) + '”') + "</h3>" +
+      (res.length ? '<ul class="places">' + shown.map(p => placeItem(p, { cat: true })).join("") + "</ul>" +
+        (res.length > shown.length ? '<p class="count-note">Showing the first 60. Add another word to narrow the list.</p>' : "")
+        : '<p class="muted">Check the spelling, try the four-letter building code, or browse the maps below.</p>');
+    if (speak) announce(res.length ? plural(res.length, "result") + ". Press Enter to jump to the results." : "No results for " + q + ".");
+  }
+
+  function viewLayer(c) {
+    const path = pathOf(c);
+    const all = placesIn(c);
+    const direct = c.places;
+    const isRoot = c.parent === 0;
+    const blurb = isRoot ? LAYER_BLURBS[c.name] : "";
+    document.title = c.name + " · CU Boulder Wayfinder";
+    let h = crumbs([["Maps", "#home"]].concat(path.map(x => [x.name, "#m-" + x.id])));
+    h += '<section aria-labelledby="h-layer"><p class="eyebrow">' + (isRoot ? "Map layer" : "Part of " + esc(path[path.length - 2].name)) + "</p>" +
+      '<h1 id="h-layer" tabindex="-1">' + esc(c.name) + "</h1>" +
+      "<p class=\"lead\">" + (blurb ? esc(blurb) + " " : "") + "This layer has " + plural(all.length, "place") +
+      (c.children.length ? " in " + plural(c.children.length, "group") : "") + ".</p>" +
+      '<p><a href="https://map.concept3d.com/?id=336#!ct/' + c.id + '" target="_blank" rel="noopener">Open this layer on the official campus map (visual, opens in a new tab)</a></p></section>';
+
+    if (c.children.length) {
+      h += '<section aria-labelledby="h-groups"><h2 id="h-groups">Groups in this layer</h2><ul class="layers">' +
+        c.children.map(ch => '<li><a href="#m-' + ch.id + '"><span class="name">' + esc(ch.name) + '</span><span class="count">' + plural(placesIn(ch).length, "place") + "</span></a></li>").join("") +
+        "</ul></section>";
+    }
+    const list = c.children.length ? all : direct;
+    if (list.length) {
+      const listTitle = c.children.length ? "All " + plural(list.length, "place") + " in " + c.name : plural(list.length, "place");
+      const hasStart = !!startPlace();
+      const controls = '<div class="row"><div class="field"><label for="filter">Filter this list</label><input type="text" id="filter" autocomplete="off"></div>' +
+        '<div class="field"><label for="sort">Sort</label><select id="sort"><option value="az">A to Z</option><option value="near"' + (hasStart ? "" : " disabled") + '>Nearest to my starting point' + (hasStart ? "" : " (set one first)") + "</option></select></div></div>";
+      const body = '<div class="inner">' + controls + '<p class="count-note" id="list-count"></p><ul class="places" id="place-list"></ul></div>';
+      if (c.children.length && list.length > 40) {
+        h += '<section aria-labelledby="h-all"><h2 id="h-all" class="sr-only">' + esc(listTitle) + "</h2><details id=\"all-details\"><summary>Show all " + plural(list.length, "place") + ", A to Z</summary>" + body + "</details></section>";
+      } else {
+        h += '<section aria-labelledby="h-all"><h2 id="h-all">' + esc(listTitle) + "</h2>" + body.replace('class="inner"', 'class="list-wrap"') + "</section>";
+      }
+    }
+    main.innerHTML = h;
+
+    const ul = document.getElementById("place-list");
+    if (ul) {
+      const filter = document.getElementById("filter");
+      const sort = document.getElementById("sort");
+      const countEl = document.getElementById("list-count");
+      if (startPlace()) sort.value = "near";
+      let t;
+      const draw = speak => {
+        const f = filter.value.toLowerCase().trim();
+        const items = sortPlaces(list, sort.value).filter(p => !f || p.hay.includes(f));
+        ul.innerHTML = items.map(p => placeItem(p, { cat: c.children.length > 0 })).join("");
+        const msg = f ? plural(items.length, "place") + " match “" + filter.value.trim() + "”." : plural(items.length, "place") + ", sorted " + (sort.value === "near" ? "nearest first." : "A to Z.");
+        countEl.textContent = msg;
+        if (speak) announce(msg);
+      };
+      filter.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => draw(true), 350); });
+      sort.addEventListener("change", () => draw(true));
+      draw(false);
+    }
+  }
+
+  function viewPlace(p) {
+    const primary = cats.get(p.cats[0]);
+    const path = pathOf(primary);
+    const s = startPlace();
+    const far = area(p) === "far";
+    document.title = p.n + " · CU Boulder Wayfinder";
+    const summary = whereText(p);
+    const fromStart = fromStartText(p);
+
+    let h = crumbs([["Maps", "#home"]].concat(path.map(x => [x.name, "#m-" + x.id]), [[p.n]]));
+    h += '<div class="place-grid"><div style="display:grid;gap:2rem;min-width:0">';
+    h += '<section class="place-head" aria-labelledby="h-place"><p class="eyebrow">' + esc(primary.name) + "</p>" +
+      '<h1 id="h-place" tabindex="-1">' + esc(p.n) + "</h1>" +
+      '<p class="lead" id="place-summary">' + esc(summary.join(" ")) + (fromStart ? " " + esc(fromStart) : "") + "</p></section>";
+
+    // Quick facts
+    const facts = [];
+    if (p.code) facts.push(["Building code", '<span class="code">' + esc(p.code) + "</span>"]);
+    if (p.num) facts.push(["Building number", esc(p.num)]);
+    if (p.a) facts.push(["Address", esc(p.a) + ", Boulder, Colorado"]);
+    facts.push(["Listed on", p.cats.map(id => { const c = cats.get(id); return '<a href="#m-' + c.id + '">' + esc(c.name) + "</a>"; }).join(", ")]);
+    h += '<section aria-labelledby="h-facts"><h2 id="h-facts">Quick facts</h2><dl class="facts">' +
+      facts.map(f => "<dt>" + f[0] + "</dt><dd>" + f[1] + "</dd>").join("") + "</dl>";
+
+    // Actions
+    const dest = p.la + "," + p.ln;
+    const gUrl = "https://www.google.com/maps/dir/?api=1&destination=" + dest + "&travelmode=walking" + (s && s !== p ? "&origin=" + s.la + "," + s.ln : "");
+    h += '<div class="actions">' +
+      (s === p
+        ? '<button type="button" class="secondary" id="start-btn" data-clear="1">Clear starting point</button>'
+        : '<button type="button" id="start-btn">Measure distances from here</button>') +
+      (p.a ? '<button type="button" class="secondary" id="copy-btn">Copy address</button>' : "") +
+      "</div>" +
+      (routable(p) ? '<div class="actions"><button type="button" class="secondary" id="dir-to">Directions to here</button><button type="button" class="secondary" id="dir-from">Directions from here</button></div>' : "") +
+      '<p id="copy-fallback" class="hint" hidden></p>' +
+      '<ul style="margin:0;padding-left:1.2rem;display:grid;gap:0.3rem">' +
+      '<li><a href="' + esc(gUrl) + '" target="_blank" rel="noopener">Walking directions in Google Maps' + (s && s !== p ? " from " + esc(s.n) : "") + " (opens in a new tab)</a></li>" +
+      '<li><a href="https://map.concept3d.com/?id=336#!m/' + p.id + '" target="_blank" rel="noopener">Show on the official campus map (visual, opens in a new tab)</a></li></ul></section>';
+
+    if (p.img) {
+      h += '<section aria-labelledby="h-look"><h2 id="h-look">What it looks like</h2><p class="photo-desc">' + esc(p.img.replace(/\.?$/, ".")) + '</p><p class="hint">From the description of the photo on the official campus map.</p></section>';
+    }
+    if (p.d) {
+      h += '<section aria-labelledby="h-about"><h2 id="h-about">About this ' + (isBuilding(p) ? "building" : "place") + '</h2><div class="about">' + p.d + "</div></section>";
+    }
+
+    if (!far) {
+      const nb = nearest(p, buildings, 6, true);
+      h += '<section aria-labelledby="h-near"><h2 id="h-near">Nearby buildings</h2><p class="hint">Straight-line distance and direction from ' + esc(p.n) + ".</p>" +
+        '<ul class="places near-list">' + nb.map(x => placeItem(x.q, { meta: relPhrase(x.m, p, x.q) })).join("") + "</ul></section>";
+      const svc = SERVICE_CATS.map(sc => {
+        const top = nearest(p, sc.list, 1, false)[0];
+        return top && top.m < 2500 ? { label: sc.label, q: top.q, m: top.m } : null;
+      }).filter(Boolean);
+      if (svc.length) {
+        h += '<section aria-labelledby="h-svc"><h2 id="h-svc">Closest services</h2><ul class="places near-list">' +
+          svc.map(x => '<li><a href="#p-' + x.q.id + '"><span class="pn">' + esc(x.label) + '<span class="sr-only">: </span></span><span class="pm">' +
+            esc(x.q.n) + ", " + esc(relPhrase(x.m, p, x.q)) + "</span></a></li>").join("") + "</ul></section>";
+      }
+    }
+    h += "</div>";
+    if (!far) h += plotFigure(p, s);
+    h += "</div>";
+    main.innerHTML = h;
+
+    document.getElementById("start-btn").addEventListener("click", e => {
+      if (e.currentTarget.dataset.clear) { setStart(null); announce("Starting point cleared."); }
+      else { setStart(p.id); announce("Starting point set to " + p.n + ". Lists now show distance and direction from here."); }
+      const b = document.getElementById("start-btn"); if (b) b.focus();
+    });
+    const dirTo = document.getElementById("dir-to");
+    if (dirTo) {
+      // Pre-fill the other end with the starting point when there is one.
+      const other = s && s !== p && routable(s) ? s.id : null;
+      dirTo.addEventListener("click", () => goRoute(other != null ? other : routeState.from === p.id ? null : routeState.from, p.id));
+      document.getElementById("dir-from").addEventListener("click", () => goRoute(p.id, routeState.to === p.id ? null : routeState.to));
+    }
+    const copy = document.getElementById("copy-btn");
+    if (copy) copy.addEventListener("click", () => {
+      const text = p.a + ", Boulder, CO";
+      const fb = document.getElementById("copy-fallback");
+      const done = () => announce("Address copied: " + text);
+      const fail = () => { fb.hidden = false; fb.textContent = "Copy did not work in this browser. The address is: " + text; announce(fb.textContent); };
+      try { navigator.clipboard.writeText(text).then(done, fail); } catch (err) { fail(); }
+    });
+  }
+
+  // Small visual plot for sighted helpers. The same information is in the text above, so it is hidden from screen readers.
+  function plotFigure(p, s) {
+    const ar = area(p);
+    let pts = buildings.filter(b => area(b) === ar);
+    if (!pts.includes(p)) pts = pts.concat([p]);
+    const near = new Set(nearest(p, buildings, 6, true).map(x => x.q));
+    const kx = Math.cos(rad(p.la));
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    pts.forEach(q => { const x = q.ln * kx, y = -q.la; minX = Math.min(minX, x); maxX = Math.max(maxX, x); minY = Math.min(minY, y); maxY = Math.max(maxY, y); });
+    const W = 300, H = 300, pad = 18;
+    const sc = Math.min((W - pad * 2) / (maxX - minX || 1e-4), (H - pad * 2) / (maxY - minY || 1e-4));
+    const ox = (W - (maxX - minX) * sc) / 2, oy = (H - (maxY - minY) * sc) / 2;
+    const P = q => [ox + (q.ln * kx - minX) * sc, oy + (-q.la - minY) * sc];
+    let dots = "";
+    pts.forEach(q => {
+      if (q === p) return;
+      const [x, y] = P(q);
+      dots += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (near.has(q) ? 4 : 2.6) + '" fill="' + (near.has(q) ? "var(--ink)" : "var(--dot)") + '"/>';
+    });
+    if (s && s !== p && area(s) === ar) {
+      const [x, y] = P(s);
+      dots += '<rect x="' + (x - 5).toFixed(1) + '" y="' + (y - 5).toFixed(1) + '" width="10" height="10" fill="none" stroke="var(--focus)" stroke-width="2.5"/>';
+    }
+    const [px, py] = P(p);
+    dots += '<circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="11" fill="none" stroke="var(--accent)" stroke-width="2.5"/><circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="5.5" fill="var(--accent)"/>';
+    const label = { "Main Campus": "Main Campus", "East Campus": "East Campus", "Williams Village": "Williams Village", "near": "Campus area" }[ar];
+    return '<figure class="plot" aria-hidden="true" style="margin:0"><svg viewBox="0 0 ' + W + " " + H + '" focusable="false">' +
+      '<text x="' + (W - 16) + '" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="var(--muted)" font-family="var(--sans)">N</text>' +
+      '<path d="M' + (W - 16) + " 28 l-5 12 h10 z\" fill=\"var(--muted)\"/>" + dots + "</svg>" +
+      "<figcaption>" + esc(label) + ": the red dot is " + esc(p.n) + ". Dark dots are the six nearest buildings" + (s && s !== p && area(s) === ar ? "; the blue square is your starting point" : "") + ". North is up.</figcaption></figure>";
+  }
+
+  function viewSettings() {
+    document.title = "Settings and help · CU Boulder Wayfinder";
+    const s = startPlace();
+    main.innerHTML =
+      '<section aria-labelledby="h-set"><h1 id="h-set" tabindex="-1">Settings and help</h1><p class="lead">Changes save automatically in this browser.</p></section>' +
+      '<section aria-labelledby="h-start" class="field"><h2 id="h-start">Starting point</h2>' +
+      '<p>When you choose a starting point, every list shows how far away each place is and in which direction, and lists can be sorted nearest first.</p>' +
+      '<label for="start-select">Measure distances from</label><select id="start-select"><option value="">No starting point</option>' +
+      buildings.map(b => '<option value="' + b.id + '"' + (s === b ? " selected" : "") + ">" + esc(b.n) + "</option>").join("") + "</select></section>" +
+      '<section aria-labelledby="h-disp"><h2 id="h-disp">Display</h2>' +
+      '<fieldset><legend>Distance units</legend>' +
+      '<label class="choice"><input type="radio" name="units" id="u-imp" value="imperial"' + (settings.units === "imperial" ? " checked" : "") + "> Feet and miles</label>" +
+      '<label class="choice"><input type="radio" name="units" id="u-met" value="metric"' + (settings.units === "metric" ? " checked" : "") + "> Meters and kilometers</label></fieldset>" +
+      '<fieldset><legend>Text size</legend>' +
+      [["normal", "Standard"], ["large", "Large"], ["xlarge", "Extra large"]].map(([v, l]) =>
+        '<label class="choice"><input type="radio" name="text" id="t-' + v + '" value="' + v + '"' + (settings.text === v ? " checked" : "") + "> " + l + "</label>").join("") +
+      "</fieldset></section>" +
+      '<section aria-labelledby="h-rset" class="rs"><h2 id="h-rset">Route settings</h2><p class="hint">How walking directions are worded and how much detail they include. The same settings are on the Directions page.</p>' +
+      routeSettingsHTML("set") + "</section>" +
+      '<section aria-labelledby="h-help" class="help"><h2 id="h-help">Using this map with a screen reader</h2>' +
+      "<ul>" +
+      "<li>Every page starts with a level 1 heading, and each part of a page has a level 2 heading. Press <kbd>H</kbd> in NVDA or JAWS browse mode, or use the VoiceOver rotor, to move between them.</li>" +
+      "<li>Landmarks are labeled: Main navigation, Breadcrumb, Search, and Main content. Press <kbd>D</kbd> in NVDA or <kbd>R</kbd> in JAWS to jump between them.</li>" +
+      "<li>When you open a page, focus moves to its heading and the page title changes, so you hear where you are.</li>" +
+      "<li>Search results and list filters update as you type and read out how many matches there are. Press <kbd>Enter</kbd> in the search box to jump to the results.</li>" +
+      "<li>Your browser’s Back button returns to the previous page.</li>" +
+      "<li>On the Directions page, type in the From box, press the down arrow to hear suggestions, and press <kbd>Enter</kbd> to choose one. Do the same in the To box. Route options appear as soon as both are chosen: most direct, step-free, fewest road crossings, and fewest turns, each with its length, time, stairs, crossings, and a short description. Pick one with the arrow keys and its directions update below without moving you. The “Use my location” button under the From box asks your browser for your location, then fills the From suggestions with the eight nearest buildings, closest first, each with its distance and direction from you, plus an option to start exactly where you are. Your location is never saved or sent anywhere. Location works when this page is opened directly in a browser; the Claude artifact viewer blocks it. Before the steps, a “Where you start” list tells you which door you leave from and which side of the building it is on, which way you face as you step out, how far to turn to begin, what the building looks like, and what is around you. Every step is its own level 4 heading that begins “Step 3 of 11” followed by the instruction, so pressing <kbd>H</kbd> or <kbd>4</kbd> moves from step to step. Under each step, an “Along the way” list describes the paths and buildings you pass.</li>" +
+      "<li>Open “Route settings” on the Directions page, or use the Route settings section above, to choose compass directions, left and right, or both; how much along-the-way detail you hear (paths and buildings, paths only, buildings only, or turns only); which route type to show first; and whether every route must be step-free.</li>" +
+      "<li>Each place page gives the location in words first, then quick facts, a description of the building’s photo, the official description, the six nearest buildings, and the closest accessible parking, bus stop, bike share, food, computer lab, all-gender bathroom, and lactation room.</li>" +
+      "<li>Distances and directions are straight-line estimates between building centers, not walking routes. Use the Google Maps link on a place page for turn-by-turn walking directions.</li>" +
+      "</ul></section>" +
+      '<section aria-labelledby="h-official" class="help"><h2 id="h-official">Official CU Boulder map resources</h2><ul>' +
+      '<li><a href="https://www.colorado.edu/map" target="_blank" rel="noopener">Official interactive campus map</a></li>' +
+      '<li><a href="https://www.colorado.edu/map/how-use-cu-boulder-interactive-campus-map" target="_blank" rel="noopener">How to use the official interactive map</a></li>' +
+      '<li><a href="https://www.colorado.edu/pts/short-term-parking/visitor-parking-map" target="_blank" rel="noopener">Visitor parking map</a></li>' +
+      '<li><a href="https://www.colorado.edu/pts/" target="_blank" rel="noopener">Parking and Transportation Services</a></li>' +
+      "</ul></section>";
+
+    document.getElementById("start-select").addEventListener("change", e => {
+      const v = e.target.value ? Number(e.target.value) : null;
+      settings.start = v; store.set("start", v); renderStartBar();
+      announce(v ? "Starting point set to " + byId.get(v).n + "." : "Starting point cleared.");
+    });
+    main.querySelectorAll('input[name="units"]').forEach(r => r.addEventListener("change", e => {
+      settings.units = e.target.value; store.set("units", settings.units);
+      announce(settings.units === "metric" ? "Distances now in meters." : "Distances now in feet and miles.");
+    }));
+    main.querySelectorAll('input[name="text"]').forEach(r => r.addEventListener("change", e => {
+      settings.text = e.target.value; store.set("text", settings.text); applyText();
+      announce("Text size set to " + e.target.parentElement.textContent.trim() + ".");
+    }));
+    bindRouteSettings("set", (key, label) => announce(label + " selected."));
+  }
+
+  // ---------- Walking network (OpenStreetMap paths, sidewalks, stairs, crosswalks) ----------
+  const NET = (function () {
+    const P = JSON.parse(document.getElementById("path-data").textContent);
+    const n = P.nodes.length / 2;
+    const lat = new Float64Array(n), lng = new Float64Array(n);
+    for (let i = 0; i < n; i++) { lat[i] = P.origin[0] + P.nodes[2 * i] / 1e6; lng[i] = P.origin[1] + P.nodes[2 * i + 1] / 1e6; }
+    const LAT0 = 40.007, KX = Math.cos(rad(LAT0)) * 111320, KY = 110540;
+    const X = i => (lng[i] - P.origin[1]) * KX, Y = i => (lat[i] - P.origin[0]) * KY;
+    // Compressed adjacency: for node i, edges are off[i]..off[i+1].
+    const deg = new Int32Array(n);
+    P.ways.forEach(w => { for (let k = 2; k < w.length - 1; k++) { deg[w[k]]++; deg[w[k + 1]]++; } });
+    const off = new Int32Array(n + 1);
+    for (let i = 0; i < n; i++) off[i + 1] = off[i] + deg[i];
+    const to = new Int32Array(off[n]), len = new Float32Array(off[n]), way = new Int32Array(off[n]);
+    const fill = off.slice(0, n);
+    P.ways.forEach((w, wi) => {
+      for (let k = 2; k < w.length - 1; k++) {
+        const a = w[k], b = w[k + 1];
+        const d = Math.hypot(X(a) - X(b), Y(a) - Y(b));
+        to[fill[a]] = b; len[fill[a]] = d; way[fill[a]++] = wi;
+        to[fill[b]] = a; len[fill[b]] = d; way[fill[b]++] = wi;
+      }
+    });
+    // Keep only the largest connected piece of the network so every snapped point can reach every other.
+    const comp = new Int32Array(n).fill(-1);
+    let best = 0, bestSize = 0;
+    for (let s = 0, c = 0; s < n; s++) {
+      if (comp[s] >= 0) continue;
+      let size = 0; const st = [s]; comp[s] = c;
+      while (st.length) { const x = st.pop(); size++; for (let e = off[x]; e < off[x + 1]; e++) if (comp[to[e]] < 0) { comp[to[e]] = c; st.push(to[e]); } }
+      if (size > bestSize) { bestSize = size; best = c; }
+      c++;
+    }
+    const kindOf = e => P.ways[way[e]][1];
+    const nameOf = e => P.names[P.ways[way[e]][0]];
+    return { P, n, lat, lng, X, Y, off, to, len, way, comp, best, kindOf, nameOf, deg: i => off[i + 1] - off[i],
+      minLa: P.origin[0], minLn: P.origin[1], maxLa: 40.0215, maxLn: -105.2330 };
+  })();
+
+  const routable = p => p.la > NET.minLa && p.la < NET.maxLa && p.ln > NET.minLn && p.ln < NET.maxLn;
+  // Snap a place to the nearest path point, never to a point that only touches stairs.
+  function snap(p) {
+    const px = (p.ln - NET.minLn) * Math.cos(rad(40.007)) * 111320, py = (p.la - NET.minLa) * 110540;
+    let bi = -1, bd = Infinity;
+    for (let i = 0; i < NET.n; i++) {
+      if (NET.comp[i] !== NET.best) continue;
+      { let ok = false; for (let e = NET.off[i]; e < NET.off[i + 1]; e++) if (NET.kindOf(e) !== 2) { ok = true; break; } if (!ok) continue; }
+      const d = (NET.X(i) - px) ** 2 + (NET.Y(i) - py) ** 2;
+      if (d < bd) { bd = d; bi = i; }
+    }
+    return { node: bi, off: Math.sqrt(bd) };
+  }
+
+  // Building entrances from OpenStreetMap, merged per place.
+  const DOORS = new Map();
+  (function () {
+    const E = JSON.parse(document.getElementById("door-data").textContent);
+    Object.keys(E).forEach(id => {
+      const p = byId.get(Number(id));
+      if (!p) return;
+      const list = DOORS.get(p) || [];
+      E[id].forEach(([la, ln, kind, flags, label]) => {
+        if (!list.some(d => Math.abs(d.la - la) < 1e-6 && Math.abs(d.ln - ln) < 1e-6)) list.push({ la, ln, kind, flags, label });
+      });
+      DOORS.set(p, list);
+    });
+  })();
+
+  // Possible start or end points for a place: its mapped doors, or its center when none are mapped.
+  // With strict set, a step-free route may only use doors marked wheelchair accessible (when any are mapped).
+  function candidates(p, avoidStairs, strict) {
+    let doors = (DOORS.get(p) || []).filter(d => !(avoidStairs && d.flags & 2));
+    if (avoidStairs && strict && doors.some(d => d.flags & 1)) doors = doors.filter(d => d.flags & 1);
+    const list = doors.length ? doors.map(d => ({ la: d.la, ln: d.ln, door: d })) : [{ la: p.la, ln: p.ln, door: null }];
+    return list.map(c => Object.assign(c, snap(c)));
+  }
+
+  // Route types. Each is a different idea of the "best" walk; costs are in meters of walking.
+  const PROFILES = [
+    { id: "direct", name: "Most direct", desc: "The shortest walk. It may use stairs, and it walks along streets when that is shorter.", street: 1.1 },
+    { id: "stepfree", name: "Step-free", desc: "Avoids every flight of stairs and uses entrances marked wheelchair accessible where they are mapped.", street: 1.25, avoid: true },
+    { id: "quiet", name: "Fewest road crossings", desc: "Stays on campus walkways and avoids crossing or walking along roads wherever it reasonably can.", street: 3, crossing: 120 },
+    { id: "simple", name: "Fewest turns", desc: "Stays on the same path as long as possible, so there are fewer steps to remember.", street: 1.25, turn: 35 }
+  ];
+  const profileById = id => PROFILES.find(p => p.id === id) || PROFILES[0];
+
+  // Dijkstra with a binary heap, seeded from every door of the destination, stopping once every door of the start is reached.
+  // That picks the best pair of doors in one pass.
+  function planRoute(A, B, prof, forceStepFree, relaxed) {
+    const avoid = !!(prof.avoid || forceStepFree);
+    if (avoid && !relaxed) {
+      // Try accessible-marked doors first; if they can't be reached step-free, allow any door not marked inaccessible.
+      const strictRoute = planRoute(A, B, prof, forceStepFree, "strict");
+      return strictRoute || planRoute(A, B, prof, forceStepFree, "loose");
+    }
+    const cA = candidates(A, avoid, relaxed === "strict"), cB = candidates(B, avoid, relaxed === "strict");
+    const pen = c => c.off + (c.door ? [0, 5, 40][c.door.kind] : 0);  // prefer main entrances, avoid service doors
+    const n = NET.n, D = new Float64Array(n).fill(Infinity), prevE = new Int32Array(n).fill(-1), from = new Int32Array(n).fill(-1), srcOf = new Int32Array(n).fill(-1);
+    const heap = [];
+    const push = (d, v) => { heap.push([d, v]); let i = heap.length - 1; while (i > 0) { const p = (i - 1) >> 1; if (heap[p][0] <= heap[i][0]) break; [heap[p], heap[i]] = [heap[i], heap[p]]; i = p; } };
+    const pop = () => { const top = heap[0], last = heap.pop(); if (heap.length) { heap[0] = last; let i = 0; for (;;) { const l = 2 * i + 1, r = l + 1; let m = i; if (l < heap.length && heap[l][0] < heap[m][0]) m = l; if (r < heap.length && heap[r][0] < heap[m][0]) m = r; if (m === i) break; [heap[m], heap[i]] = [heap[i], heap[m]]; i = m; } } return top; };
+    cB.forEach((c, k) => { const d = pen(c); if (d < D[c.node]) { D[c.node] = d; srcOf[c.node] = k; push(d, c.node); } });
+    const targets = new Set(cA.map(c => c.node));
+    while (heap.length && targets.size) {
+      const [d, u] = pop();
+      if (d > D[u]) continue;
+      targets.delete(u);
+      const pe = prevE[u];
+      for (let e = NET.off[u]; e < NET.off[u + 1]; e++) {
+        const k = NET.kindOf(e);
+        if (avoid && k === 2) continue;
+        let w = NET.len[e] * (k === 1 ? prof.street : 1);
+        if (prof.crossing && k === 3 && !(pe >= 0 && NET.kindOf(pe) === 3)) w += prof.crossing;
+        if (prof.turn && pe >= 0 && NET.way[pe] !== NET.way[e]) w += prof.turn;  // changing paths approximates a turn
+        const v = NET.to[e];
+        if (d + w < D[v]) { D[v] = d + w; prevE[v] = e; from[v] = u; srcOf[v] = srcOf[u]; push(d + w, v); }
+      }
+    }
+    let best = null, bd = Infinity;
+    cA.forEach(c => { const t = D[c.node] + pen(c); if (t < bd) { bd = t; best = c; } });
+    if (!best || bd === Infinity) return null;
+    const nodes = [best.node], edges = [];
+    for (let v = best.node; from[v] >= 0; v = from[v]) { edges.push(prevE[v]); nodes.push(from[v]); }
+    return { nodes, edges, start: best, end: cB[srcOf[best.node]], avoid, profile: prof };
+  }
+
+  // Plan every route type and merge ones that come out identical.
+  function planOptions(A, B, forceStepFree) {
+    const opts = [];
+    opts.missing = [];
+    PROFILES.forEach(prof => {
+      if (forceStepFree && prof.id === "stepfree") return;
+      const path = planRoute(A, B, prof, forceStepFree);
+      if (!path) { opts.missing.push(prof); return; }
+      const key = path.nodes.join(",");
+      const same = opts.find(o => o.key === key);
+      if (same) same.also.push(prof);
+      else opts.push({ prof, path, key, also: [] });
+    });
+    return opts;
+  }
+
+  // Turn a path into spoken-style directions.
+  // style: "compass" | "relative" | "both"; verb: "all" | "paths" | "buildings" | "none".
+  function describeRoute(A, B, path, style, verb) {
+    const { nodes, edges, start, end } = path;
+    const showPaths = verb === "all" || verb === "paths", showBldgs = verb === "all" || verb === "buildings";
+    const pt = i => ({ x: NET.X(nodes[i]), y: NET.Y(nodes[i]) });
+    const brg = (a, b) => (Math.atan2(b.x - a.x, b.y - a.y) * 180 / Math.PI + 360) % 360;
+    // Bearing leaving node index i going forward (about 15 m ahead) or arriving at it (about 15 m back).
+    const headOut = i => { let j = i, acc = 0; while (j < nodes.length - 1 && acc < 15) { acc += NET.len[edges[j]]; j++; } return brg(pt(i), pt(j)); };
+    const headIn = i => { let j = i, acc = 0; while (j > 0 && acc < 15) { acc += NET.len[edges[j - 1]]; j--; } return brg(pt(j), pt(i)); };
+    const label = e => {
+      const k = NET.kindOf(e), nm = NET.nameOf(e);
+      if (k === 2) return "stairs"; if (k === 3) return "crossing";
+      return nm ? "n:" + nm : (k === 1 ? "road" : "walkway");
+    };
+    const segs = [];
+    for (let i = 0; i < edges.length; i++) {
+      const e = edges[i], lb = label(e);
+      const cur = segs[segs.length - 1];
+      let split = !cur || cur.label !== lb;
+      if (!split && NET.deg(nodes[i]) > 2) {
+        let d = headOut(i) - headIn(i); d = ((d + 540) % 360) - 180;
+        if (Math.abs(d) > 50) split = true;
+      }
+      if (split) segs.push({ label: lb, kind: NET.kindOf(e), name: NET.nameOf(e), start: i, end: i + 1, m: NET.len[e] });
+      else { cur.end = i + 1; cur.m += NET.len[e]; }
+    }
+    // Fold tiny wiggles into the previous leg so the list stays short.
+    const merged = [];
+    segs.forEach(s => {
+      const prev = merged[merged.length - 1];
+      if (prev && s.m < 12 && s.kind !== 2 && s.kind !== 3) { prev.end = s.end; prev.m += s.m; }
+      else if (prev && prev.label === s.label && s.kind !== 2 && s.kind !== 3 && prev.m < 12) { prev.end = s.end; prev.m += s.m; }
+      else merged.push(s);
+    });
+    const nodeLL = i => ({ la: NET.lat[nodes[i]], ln: NET.lng[nodes[i]] });
+    const usedB = new Set([A, B]);
+    const nearBuilding = (ll, maxM) => {
+      let best = null, bd = maxM;
+      buildings.forEach(b => { if (usedB.has(b)) return; const d = dist(ll, b); if (d < bd) { bd = d; best = b; } });
+      return best;
+    };
+    const short = m => m < 12 ? "a few steps" : fmtDist(m);
+    const compass = b => DIRS[Math.round(b / 45) % 8];
+    const AXES = ["north–south", "northeast–southwest", "east–west", "southeast–northwest"];
+    const axis = b => AXES[Math.round(b / 45) % 4];
+    const angle = (a, b) => Math.abs(((a - b + 540) % 360) - 180);
+    const nodeXY = v => ({ x: NET.X(v), y: NET.Y(v) });
+    const onWay = s => s.name ? "along " + s.name : s.kind === 1 ? "along the service road" : "on the walkway";
+    const onto = s => s.name ? "onto " + s.name : s.kind === 1 ? "onto the service road" : "onto the walkway";
+    const wayWord = (k, nm) => k === 2 ? "stairs" : k === 3 ? "a crosswalk" : nm || (k === 1 ? "a service road" : "a walkway");
+    const cap = w => w.charAt(0).toUpperCase() + w.slice(1);
+
+    // Direction words in the chosen style. h is the direction of travel (or facing); b is the bearing to the thing.
+    const REL = ["straight ahead", "ahead to your right", "to your right", "back to your right", "behind you", "back to your left", "to your left", "ahead to your left"];
+    const rel8 = (h, b) => REL[Math.round((((b - h) % 360) + 360) % 360 / 45) % 8];
+    const dirWord = (h, b) => h == null || style === "compass" ? compass(b) : style === "relative" ? rel8(h, b) : rel8(h, b) + " (" + compass(b) + ")";
+    const where = (h, b) => h == null || style === "compass" ? "to the " + compass(b) : dirWord(h, b);
+
+    const along = [0];
+    for (let i = 0; i < edges.length; i++) along[i + 1] = along[i] + NET.len[edges[i]];
+
+    // Direction a side path leaves node v, looking about 12 m down it so small kinks don't mislead.
+    function branchBearing(v, e) {
+      let prev = v, cur = NET.to[e], acc = NET.len[e];
+      while (acc < 12 && NET.deg(cur) === 2) {
+        let next = -1;
+        for (let f = NET.off[cur]; f < NET.off[cur + 1]; f++) if (NET.to[f] !== prev) { next = f; break; }
+        if (next < 0) break;
+        acc += NET.len[next]; prev = cur; cur = NET.to[next];
+      }
+      return { b: brg(nodeXY(v), nodeXY(cur)), m: acc, deadEnd: NET.deg(cur) === 1 };
+    }
+    // Side paths at route position i: every way out except the one we came on and the one we leave on.
+    function branchesAt(i) {
+      const v = nodes[i], out = [];
+      const prevV = i > 0 ? nodes[i - 1] : -1, nextV = i < nodes.length - 1 ? nodes[i + 1] : -1;
+      for (let e = NET.off[v]; e < NET.off[v + 1]; e++) {
+        const t = NET.to[e];
+        if (t === prevV || t === nextV) continue;
+        const bb = branchBearing(v, e);
+        if (bb.deadEnd && bb.m < 8) continue;  // tiny mapping stubs
+        out.push({ kind: NET.kindOf(e), name: NET.nameOf(e), b: bb.b });
+      }
+      return out;
+    }
+    // Opposite branches of the same kind read as one crossing path.
+    function branchText(list, h) {
+      const taken = new Set(), parts = [];
+      list.forEach((a, i) => {
+        if (taken.has(i)) return;
+        taken.add(i);
+        // A pair only "crosses your path" if it runs roughly perpendicular to your direction of travel.
+        const across = h == null || (angle(a.b, h) > 45 && angle(a.b, h) < 135);
+        const j = !across ? -1 : list.findIndex((c, k) => !taken.has(k) && c.kind === a.kind && c.name === a.name && angle(a.b, c.b) > 140);
+        const w = wayWord(a.kind, a.name);
+        const run = style === "relative" ? "" : ", running " + axis(a.b);
+        if (j >= 0) {
+          taken.add(j);
+          if (a.kind === 2) parts.push("stairs cross your path" + run);
+          else parts.push(w + " crosses your path" + run + (a.kind === 1 ? " (a road, so listen for traffic)" : ""));
+        } else {
+          parts.push(w + (a.kind === 2 ? " lead" : " leads") + " off " + where(h, a.b));
+        }
+      });
+      return parts.join("; ");
+    }
+    let junctions = 0;
+    function detailsFor(s, idx) {
+      if (s.kind === 3) return [];  // the crosswalk step already names the street
+      const items = [];
+      // Describe side paths against the heading the listener was told, unless the step announces a curve.
+      const told = s.hi * 45;
+      const hAt = i => s.curve ? headIn(i) : told;
+      if (showPaths) {
+        const here = branchesAt(s.start);
+        if (here.length && idx > 0) { junctions++; items.push({ at: -1, text: "At this junction, " + branchText(here, told) + "." }); }
+        let group = null;
+        const flush = () => {
+          if (!group) return;
+          const lead = group.at < 12 ? "Right away, " : "After " + fmtDist(group.at) + ", ";
+          const prev = items[items.length - 1];
+          // Junctions that round to the same distance are read as one item.
+          if (prev && prev.lead === lead) { prev.text = prev.text.slice(0, -1) + "; " + branchText(group.br, group.h) + "."; return; }
+          junctions++;
+          items.push({ at: group.at, lead, text: lead + branchText(group.br, group.h) + "." });
+        };
+        for (let i = s.start + 1; i < s.end; i++) {
+          const br = branchesAt(i);
+          if (!br.length) continue;
+          const at = along[i] - along[s.start];
+          if (group && at - group.at < 6) group.br.push(...br);  // one junction mapped as several nearby points
+          else { flush(); group = { at, br: br.slice(), h: hAt(i) }; }
+        }
+        flush();
+      }
+      if (showBldgs) {
+        buildings.forEach(b => {
+          if (usedB.has(b)) return;
+          let best = Infinity, bi = -1;
+          for (let i = s.start; i <= s.end; i++) { const d = dist(nodeLL(i), b); if (d < best) { best = d; bi = i; } }
+          if (best > 45) return;
+          usedB.add(b);
+          const at = along[bi] - along[s.start];
+          const h = hAt(bi);
+          items.push({ at: at + 0.1, text: (at < 12 ? "Right away, " : "At about " + fmtDist(at) + ", ") + b.n + " is " + where(h, bearingLL(nodeLL(bi), b)) + ", about " + fmtDist(best) + " away." });
+        });
+      }
+      return items.sort((a, b) => a.at - b.at).map(x => x.text);
+    }
+    // Closest named road within maxM meters, with the direction it runs.
+    function nearestRoad(ll, maxM) {
+      const px = (ll.ln - NET.minLn) * Math.cos(rad(40.007)) * 111320, py = (ll.la - NET.minLa) * 110540;
+      let best = null, bd = maxM;
+      for (let v = 0; v < NET.n; v++) {
+        const dx = NET.X(v) - px, dy = NET.Y(v) - py;
+        if (Math.abs(dx) > bd || Math.abs(dy) > bd) continue;
+        const d = Math.hypot(dx, dy);
+        if (d >= bd) continue;
+        for (let e = NET.off[v]; e < NET.off[v + 1]; e++) {
+          if (NET.kindOf(e) === 1 && NET.nameOf(e)) {
+            bd = d;
+            best = { name: NET.nameOf(e), b: brg(nodeXY(v), nodeXY(NET.to[e])), m: d, at: { la: NET.lat[v], ln: NET.lng[v] } };
+            break;
+          }
+        }
+      }
+      return best;
+    }
+    function bearingLL(a, b) {
+      const y = Math.sin(rad(b.ln - a.ln)) * Math.cos(rad(b.la));
+      const x = Math.cos(rad(a.la)) * Math.sin(rad(b.la)) - Math.sin(rad(a.la)) * Math.cos(rad(b.la)) * Math.cos(rad(b.ln - a.ln));
+      return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+    }
+    const crossedStreet = s => {
+      for (let i = s.start; i <= s.end; i++) {
+        const v = nodes[i];
+        for (let e = NET.off[v]; e < NET.off[v + 1]; e++) if (NET.kindOf(e) === 1 && NET.nameOf(e)) return NET.nameOf(e);
+      }
+      return "";
+    };
+
+    // Which way you face at the start: out of the door, or away from the building.
+    const startLL = nodeLL(0), endLL = nodeLL(nodes.length - 1);
+    const facing = start.door ? bearingLL(A, start) : isBuilding(A) ? bearingLL(A, startLL) : null;
+    // Headings measured strictly inside one leg, so a short crosswalk or stair never borrows direction from its neighbors.
+    const ri = b => Math.round(b / 45) % 8;  // 8-point compass index, the same rounding the listener hears
+    const segOut = s => { let j = s.start, acc = 0; while (j < s.end && acc < 15) { acc += NET.len[edges[j]]; j++; } return brg(pt(s.start), pt(j)); };
+    const segIn = s => { let j = s.end, acc = 0; while (j > s.start && acc < 15) { acc += NET.len[edges[j - 1]]; j--; } return brg(pt(j), pt(s.end)); };
+    const walkable = s => s.kind === 0 || s.kind === 1;
+    const measure = s => {
+      s.outB = segOut(s); s.inB = segIn(s);
+      s.hi = ri(s.outB);
+      // The heading the listener believes they end on: the start heading, unless we announce a curve.
+      s.curve = walkable(s) && s.m > 25 && ri(s.inB) !== s.hi;
+      s.endHi = s.curve ? ri(s.inB) : s.hi;
+    };
+    merged.forEach(measure);
+    // Merge consecutive legs the listener would hear as one step: the same path in the same direction, a crosswalk
+    // mapped in two pieces around a median, or a stairway mapped as two flights.
+    for (let k = 1; k < merged.length;) {
+      const a = merged[k - 1], b = merged[k];
+      const sameWalk = walkable(a) && walkable(b) && a.label === b.label && b.hi === a.endHi;
+      const sameCross = a.kind === 3 && b.kind === 3 && crossedStreet(a) === crossedStreet(b);
+      const sameStairs = a.kind === 2 && b.kind === 2;
+      if (sameWalk || sameCross || sameStairs) {
+        a.end = b.end; a.m += b.m; measure(a); merged.splice(k, 1);
+      } else k++;
+    }
+    // Signed turn in 45° steps from the previous announced heading: 0 straight, ±1 bear, ±2 turn, ±3 sharp, 4 around.
+    const turnSteps = (fromI, toI) => { const k = ((toI - fromI) % 8 + 8) % 8; return k > 4 ? k - 8 : k; };
+    const turnFromSteps = k => k === 0 ? "continue straight" : Math.abs(k) === 4 ? "turn around" :
+      (Math.abs(k) === 1 ? "bear " : Math.abs(k) === 2 ? "turn " : "make a sharp ") + (k > 0 ? "right" : "left");
+    const firstHead = merged.length ? merged[0].outB : null;
+
+    const steps = [];
+    const meta = [];
+    let stairs = 0, crossings = 0;
+    merged.forEach((s, idx) => {
+      let text = "";
+      const out = s.outB, H = DIRS[s.hi];
+      const k = idx === 0 ? 0 : turnSteps(merged[idx - 1].endHi, s.hi);
+      const straight = k === 0;
+      const tw = turnFromSteps(k);
+      const at = idx === 0 ? null : nearBuilding(nodeLL(s.start), 35);
+      if (at) usedB.add(at);
+      const prefix = idx === 0
+        ? ((start.door || A.here) && start.off > 8 ? "Walk about " + fmtDist(start.off) + " " + dirWord(facing, bearingLL(start, startLL)) + (A.here ? " from where you are" : " from the door") + " to the walkway, then " : "")
+        : (at ? "Near " + at.n + ", " : "");
+      let body;
+      if (s.kind === 2) {
+        stairs++;
+        const lead = idx === 0 || straight ? "" : tw + " and ";
+        body = style === "compass" ? "take the stairs heading " + H : lead + "take the stairs" + (style === "both" ? " heading " + H : "");
+        body += ", " + short(s.m) + ".";
+      } else if (s.kind === 3) {
+        crossings++;
+        const st = crossedStreet(s) || "the street";
+        const lead = idx === 0 || straight ? "" : tw + " and ";
+        body = style === "compass" ? "cross " + st + " heading " + H + " at the crosswalk." : lead + "cross " + st + (style === "both" ? " heading " + H : "") + " at the crosswalk.";
+      } else {
+        if (style === "compass") body = (idx === 0 ? "walk " : straight ? "continue " : "turn and head ") + H + " " + onWay(s) + " for " + short(s.m) + ".";
+        else if (style === "relative") body = idx === 0 ? "walk " + onWay(s) + " for " + short(s.m) + "." : straight ? "continue straight " + onWay(s) + " for " + short(s.m) + "." : tw + " " + onto(s) + " and go " + short(s.m) + ".";
+        else body = idx === 0 ? "walk " + H + " " + onWay(s) + " for " + short(s.m) + "." : straight ? "continue straight, heading " + H + ", " + onWay(s) + " for " + short(s.m) + "." : tw + " to head " + H + " " + onWay(s) + " for " + short(s.m) + ".";
+        if (s.curve) {
+          const side = turnSteps(s.hi, s.endHi) > 0 ? "right" : "left";
+          const endDir = DIRS[s.endHi];
+          body += style === "compass" ? " The path curves and ends heading " + endDir + "." : style === "relative" ? " The path curves to the " + side + "." : " The path curves to the " + side + " and ends heading " + endDir + ".";
+        }
+      }
+      text = prefix ? prefix + body : cap(body);
+      steps.push({ text, stairs: s.kind === 2, details: detailsFor(s, idx) });
+      meta.push({ kind: s.kind, label: s.label, hi: s.hi, endHi: s.endHi, turn: k, m: s.m, start: s.start, end: s.end });
+    });
+    // Two genuinely separate turns can read identically (for example two left turns around a corner). Mark the second.
+    for (let k = 1; k < steps.length; k++) {
+      if (steps[k].text !== steps[k - 1].text) continue;
+      const t = steps[k].text;
+      const again = t.replace(/\b(turn|bear) (left|right)\b/i, "$1 $2 again").replace(/\bmake a sharp (left|right)\b/i, "make another sharp $1");
+      steps[k].text = again !== t ? again : t + " This is a new step, separate from the one before.";
+    }
+
+    // ----- Orientation at the start: which door, which side, which way you face, what is around you -----
+    const sideOf = (P, c) => compass(bearingLL(P, c));
+    const doorWord = d => d.kind === 0 ? "main entrance" : d.kind === 2 ? "service entrance" : "entrance";
+    const doorName = (d, P, c) => "the " + doorWord(d) + " on the " + sideOf(P, c) + " side of " + P.n + (d.label ? " (marked “" + d.label + "”)" : "");
+    const orient = [];
+    if (start.door) {
+      orient.push("You start at " + doorName(start.door, A, start) + "." + (start.door.flags & 1 ? " This entrance is marked wheelchair accessible." : ""));
+      orient.push(style === "relative" ? "Step out of the door so the building is behind you." : "As you step out of the door with the building behind you, you face " + compass(facing) + ".");
+      if (start.off > 8) orient.push("The walkway is about " + fmtDist(start.off) + " " + where(facing, bearingLL(start, startLL)) + (style === "compass" ? " of the door" : "") + ".");
+    } else if (isBuilding(A)) {
+      orient.push("No doors are mapped for " + A.n + ", so you start on the walkway along its " + compass(facing) + " side, about " + fmtDist(dist(A, startLL)) + " from the middle of the building.");
+      orient.push(style === "relative" ? "Stand on that walkway with the building behind you." : "Stand on that walkway with the building behind you. You are facing " + compass(facing) + ".");
+    } else if (A.here) {
+      orient.push("You start where you are now" + (A.acc ? ", as located by your device (accurate to about " + fmtDist(A.acc) + ")" : "") + ".");
+      if (start.off > 8) orient.push("The nearest walkway on the route is about " + fmtDist(start.off) + " to the " + compass(bearingLL(A, startLL)) + " of you. Head there first.");
+      const nb = buildings.map(b => ({ b, m: dist(A, b) })).sort((x, y) => x.m - y.m)[0];
+      if (nb && !showBldgs) orient.push("The closest building to you is " + nb.b.n + ", " + fmtDist(nb.m) + " to the " + compass(bearingLL(A, nb.b)) + ".");
+    } else {
+      orient.push("You start at " + A.n + (start.off > 12 ? ", on the walkway about " + fmtDist(start.off) + " to the " + compass(bearingLL(A, startLL)) + " of it" : "") + ".");
+    }
+    if (firstHead != null) {
+      if (facing == null) orient.push("To begin, face " + compass(firstHead) + ".");
+      else {
+        // Size the turn from the same rounded compass points the listener hears.
+        const k = ((Math.round(firstHead / 45) - Math.round(facing / 45)) % 8 + 8) % 8;
+        const size = Math.min(k, 8 - k);
+        const cardinal = ["You are already facing that way.", "That is a slight turn.", "That is a quarter turn.", "That is a large turn, most of the way around.", "That means turning all the way around."][size];
+        const relTurn = ["walk straight ahead", "turn slightly right", "turn right, a quarter turn", "turn sharply right", "turn around", "turn sharply left", "turn left, a quarter turn", "turn slightly left"][k];
+        if (style === "compass") orient.push("To begin, face " + compass(firstHead) + ". " + cardinal);
+        else if (style === "relative") orient.push("To begin, " + relTurn + ".");
+        else orient.push("To begin, " + relTurn + (k === 0 ? ", facing " : " to face ") + compass(firstHead) + ".");
+      }
+    }
+    if (isBuilding(A) && A.img) orient.push("What " + A.n + " looks like: " + A.img.replace(/\.?$/, "."));
+    const ref = firstHead;  // relative descriptions assume you have turned to your first direction
+    if (showBldgs) {
+      const around = [], dirsSeen = new Set();
+      const origin = A.here ? A : startLL;  // from your actual position when starting where you are
+      buildings.filter(b => b !== A).map(b => ({ b, m: dist(origin, b) })).filter(x => x.m < 150).sort((x, y) => x.m - y.m).forEach(x => {
+        const bb = bearingLL(origin, x.b), dk = compass(bb);
+        if (dirsSeen.has(dk) || around.length >= 4) return;
+        dirsSeen.add(dk);
+        around.push(x.b.n + " is " + fmtDist(x.m) + " " + where(ref, bb));
+      });
+      if (around.length) orient.push((style === "compass" ? "Around you: " : "Around you, once you face your first direction: ") + around.join("; ") + ".");
+    }
+    const road = nearestRoad(startLL, 60);
+    if (road) {
+      const rb = bearingLL(startLL, road.at);
+      orient.push(style === "compass" ? road.name + " runs " + axis(road.b) + ", about " + fmtDist(road.m) + " to the " + compass(rb) + "."
+        : road.name + " is about " + fmtDist(road.m) + " " + where(ref, rb) + (style === "both" ? ", running " + axis(road.b) : "") + ".");
+    }
+    if (showPaths) {
+      const here0 = branchesAt(0);
+      if (here0.length) orient.push("Paths meeting where you start: " + branchText(here0, ref) + ".");
+    }
+    const nDoors = (DOORS.get(A) || []).length;
+    if (start.door && nDoors > 1) orient.push(A.n + " has " + nDoors + " mapped entrances. This route uses the one on the " + sideOf(A, start) + " side because it suits this route best" + (path.avoid ? " without stairs" : "") + ".");
+
+    // ----- Arrival -----
+    const last = nodes.length - 1;
+    const hIn = last > 0 ? headIn(last) : firstHead;
+    let arrive;
+    const arriveDetails = [];
+    if (end.door) {
+      arrive = "Arrive at " + doorName(end.door, B, end) + ".";
+      if (end.off > 8) arrive += " The door is about " + fmtDist(end.off) + " " + where(hIn, bearingLL(endLL, end)) + ".";
+      else if (style !== "compass") arrive += " The door is " + where(hIn, bearingLL(endLL, B)) + ".";
+      if (style !== "relative") arrive += " Standing at the door, you face " + compass(bearingLL(end, B)) + ", toward the building.";
+      if (end.door.flags & 1) arrive += " This entrance is marked wheelchair accessible.";
+    } else if (isBuilding(B)) {
+      arrive = "Arrive at the " + sideOf(B, endLL) + " side of " + B.n + ". The middle of the building is about " + fmtDist(dist(endLL, B)) + " " + where(hIn, bearingLL(endLL, B)) + ". No doors are mapped here, so look for the nearest entrance.";
+    } else if (B.here) {
+      arrive = "Arrive back where you started" + (end.off > 12 ? ", about " + fmtDist(end.off) + " " + where(hIn, bearingLL(endLL, B)) + " of the walkway" : "") + ".";
+    } else {
+      arrive = "Arrive at " + B.n + (end.off > 12 ? ", about " + fmtDist(end.off) + " " + where(hIn, bearingLL(endLL, B)) : "") + ".";
+    }
+    if (isBuilding(B) && B.img) arriveDetails.push("What " + B.n + " looks like: " + B.img.replace(/\.?$/, "."));
+    const nDoorsB = (DOORS.get(B) || []).length;
+    if (end.door && nDoorsB > 1) arriveDetails.push(B.n + " has " + nDoorsB + " mapped entrances; this is the one this route reaches.");
+    steps.push({ text: arrive, details: arriveDetails });
+    const total = edges.reduce((t, e) => t + NET.len[e], 0) + start.off + end.off;
+    return { steps, orient, total, stairs, crossings, junctions, meta };
+  }
+
+  const routeState = {
+    from: store.get("routeFrom", null), to: store.get("routeTo", null),
+    avoidStairs: store.get("avoidStairs", false),
+    style: store.get("routeStyle", "compass"),
+    verb: store.get("routeVerb", "all"),
+    profile: store.get("routeProfile", "direct"),
+    options: null, A: null, B: null, fellBack: false
+  };
+
+  // ---------- Route settings (shared by the Directions and Settings pages) ----------
+  const STYLE_OPTS = [
+    ["compass", "Compass directions", "“Walk north on the walkway.” Paths and buildings are described as north, southeast, and so on."],
+    ["relative", "Left and right", "“Turn left onto the walkway.” Paths and buildings are described as to your left, ahead, or behind you."],
+    ["both", "Both", "“Turn left to head north on the walkway.” Every direction is given both ways."]
+  ];
+  const VERB_OPTS = [
+    ["all", "Paths and buildings", "Every intersecting path, road, stairway, and crosswalk, plus the buildings you pass."],
+    ["paths", "Paths only", "Every intersecting path, road, stairway, and crosswalk, without buildings."],
+    ["buildings", "Buildings only", "The buildings you pass, without the intersecting paths."],
+    ["none", "Turns only", "Just the numbered steps, with no along-the-way lists."]
+  ];
+  function radioGroup(pfx, name, legend, opts, current) {
+    return "<fieldset><legend>" + legend + "</legend>" + opts.map(([v, l, d]) =>
+      '<div class="ropt"><label class="choice"><input type="radio" name="' + pfx + "-" + name + '" id="' + pfx + "-" + name + "-" + v + '" value="' + v + '"' +
+      (current === v ? " checked" : "") + ' aria-describedby="' + pfx + "-" + name + "-" + v + '-d"> ' + l + '</label><p class="hint" id="' + pfx + "-" + name + "-" + v + '-d">' + esc(d) + "</p></div>").join("") + "</fieldset>";
+  }
+  function routeSettingsHTML(pfx) {
+    return '<div class="rs-grid">' +
+      radioGroup(pfx, "style", "Direction style", STYLE_OPTS, routeState.style) +
+      radioGroup(pfx, "verb", "Along-the-way detail", VERB_OPTS, routeState.verb) +
+      radioGroup(pfx, "profile", "Route to show first", PROFILES.map(p => [p.id, p.name, p.desc]), routeState.profile) +
+      '<fieldset><legend>Stairs</legend><label class="choice"><input type="checkbox" id="' + pfx + '-stairs"' + (routeState.avoidStairs ? " checked" : "") +
+      ' aria-describedby="' + pfx + '-stairs-d"> Always avoid stairs</label><p class="hint" id="' + pfx + '-stairs-d">Every route option will be step-free.</p></fieldset></div>';
+  }
+  const labelOf = (opts, v) => (opts.find(o => o[0] === v) || opts[0])[1];
+  function settingsSummary() {
+    return labelOf(STYLE_OPTS, routeState.style) + ", " + labelOf(VERB_OPTS, routeState.verb).toLowerCase() + ", " + profileById(routeState.profile).name.toLowerCase() + (routeState.avoidStairs ? ", always step-free" : "");
+  }
+  function bindRouteSettings(pfx, onChange) {
+    const bind = (name, key, opts) => main.querySelectorAll('input[name="' + pfx + "-" + name + '"]').forEach(r => r.addEventListener("change", e => {
+      routeState[key] = e.target.value; store.set("route" + key.charAt(0).toUpperCase() + key.slice(1), e.target.value);
+      onChange(key, labelOf(opts, e.target.value));
+    }));
+    bind("style", "style", STYLE_OPTS);
+    bind("verb", "verb", VERB_OPTS);
+    bind("profile", "profile", PROFILES.map(p => [p.id, p.name]));
+    document.getElementById(pfx + "-stairs").addEventListener("change", e => {
+      routeState.avoidStairs = e.target.checked; store.set("avoidStairs", e.target.checked);
+      onChange("avoidStairs", e.target.checked ? "Always avoid stairs" : "Stairs allowed");
+    });
+  }
+
+  function routeSuggestions(q) {
+    return search(q).filter(routable).slice(0, 8);
+  }
+
+  // Accessible autocomplete (ARIA 1.2 combobox with a listbox popup).
+  // Items are { p, meta }; meta is the second line of each option (a category, or a distance from you).
+  // Returns show(items, message) so other features (like "Use my location") can fill the list.
+  function combobox(input, list, onPick) {
+    let items = [], active = -1, timer, custom = null;
+    const close = () => { list.hidden = true; input.setAttribute("aria-expanded", "false"); input.removeAttribute("aria-activedescendant"); active = -1; };
+    const setActive = i => {
+      active = i;
+      [...list.children].forEach((li, k) => li.setAttribute("aria-selected", k === i ? "true" : "false"));
+      if (i >= 0) { input.setAttribute("aria-activedescendant", list.children[i].id); list.children[i].scrollIntoView({ block: "nearest" }); }
+      else input.removeAttribute("aria-activedescendant");
+    };
+    const pick = i => { const it = items[i]; if (!it) return; input.value = it.p.n; input.dataset.id = it.p.id; custom = null; close(); onPick(it.p); };
+    const render = () => {
+      list.innerHTML = items.map((it, k) => '<li role="option" id="' + input.id + "-opt-" + k + '" aria-selected="false"><span>' + esc(it.p.n) +
+        '</span><span class="om">' + esc(it.meta) + "</span></li>").join("");
+      list.hidden = false; input.setAttribute("aria-expanded", "true"); active = -1;
+    };
+    const open = speak => {
+      const q = input.value.trim();
+      if (!q && custom) { items = custom; render(); if (speak) announce(plural(items.length, "suggestion") + " near you."); return; }
+      items = q ? routeSuggestions(q).map(p => ({ p, meta: cats.get(p.cats[0]).name })) : [];
+      if (!items.length) { close(); if (speak && q) announce("No matching campus places."); return; }
+      render();
+      if (speak) announce(plural(items.length, "suggestion") + ". Use the up and down arrows to choose, then press Enter.");
+    };
+    const show = (list2, message) => {
+      custom = list2; items = list2;
+      input.value = ""; delete input.dataset.id; input.removeAttribute("aria-invalid");
+      render();
+      input.focus();
+      announce(message);
+    };
+    input.addEventListener("input", () => { delete input.dataset.id; custom = null; input.removeAttribute("aria-invalid"); clearTimeout(timer); timer = setTimeout(() => open(true), 250); });
+    input.addEventListener("keydown", e => {
+      if (e.key === "ArrowDown") { e.preventDefault(); if (list.hidden) open(true); else setActive(Math.min(active + 1, items.length - 1)); }
+      else if (e.key === "ArrowUp") { if (!list.hidden) { e.preventDefault(); setActive(Math.max(active - 1, 0)); } }
+      else if (e.key === "Enter") { if (!list.hidden && active >= 0) { e.preventDefault(); pick(active); } else close(); }
+      else if (e.key === "Escape") { if (!list.hidden) { e.preventDefault(); close(); } }
+      else if (e.key === "Tab") close();
+    });
+    input.addEventListener("blur", () => setTimeout(close, 150));
+    list.addEventListener("mousedown", e => e.preventDefault());
+    list.addEventListener("click", e => { const li = e.target.closest("[role=option]"); if (li) pick([...list.children].indexOf(li)); });
+    return show;
+  }
+
+  // ---------- Device location (only where the browser allows it) ----------
+  // The position is used on this device only: never saved, never sent anywhere, and never put in a link.
+  const HERE_ID = -1;
+  const persistId = id => (id != null && id > 0 ? id : null);
+  function locateMe(show, statusEl) {
+    const say = (msg, isError) => { statusEl.hidden = false; statusEl.textContent = msg; statusEl.className = isError ? "error" : "hint"; announce(msg); };
+    if (!("geolocation" in navigator) || window.isSecureContext === false) {
+      say("This browser can’t share your location here. Type your starting building instead.", true); return;
+    }
+    say("Finding your location. If your browser asks, choose Allow.");
+    navigator.geolocation.getCurrentPosition(pos => {
+      const { latitude: la, longitude: ln, accuracy } = pos.coords;
+      const here = { id: HERE_ID, n: "Your current location", la, ln, a: "", code: "", num: "", d: "", img: "", k: "", cats: [], hay: "", here: true, acc: accuracy };
+      byId.set(HERE_ID, here);
+      const near = buildings.filter(routable).map(b => ({ b, m: dist(here, b) })).sort((x, y) => x.m - y.m).slice(0, 8);
+      const nearest = near[0];
+      if (!nearest) { say("No campus buildings found to list.", true); return; }
+      const onCampus = routable(here);
+      const items = near.map(x => ({ p: x.b, meta: fmtDist(x.m) + " " + dir(here, x.b) + " of you" }));
+      if (onCampus) items.unshift({ p: here, meta: "Start exactly where you are" + (accuracy ? ", accurate to about " + fmtDist(accuracy) : "") });
+      let msg = "Location found" + (accuracy ? ", accurate to about " + fmtDist(accuracy) : "") + ". ";
+      if (!onCampus) msg += "You seem to be off campus, about " + fmtDist(nearest.m) + " from the nearest campus building. ";
+      else if (accuracy > 150) msg += "That is approximate, so the nearest building may not be the one you are at. ";
+      msg += "The From list now shows " + plural(near.length, "nearby building") + ", nearest first" + (onCampus ? ", after an option to start exactly where you are" : "") +
+        ". Nearest: " + nearest.b.n + ", " + fmtDist(nearest.m) + " " + dir(here, nearest.b) + ". Use the down arrow to choose.";
+      statusEl.hidden = true;
+      show(items, msg);
+    }, err => {
+      const msg = err.code === 1
+        ? "Location was blocked. If you chose Block, allow location for this site in your browser’s site settings (usually under the icon at the left of the address bar) and try again. Inside the Claude artifact viewer, location is always blocked. You can also type your starting building."
+        : err.code === 3 ? "Finding your location took too long. Try again, or type your starting building."
+        : "Your location couldn’t be determined. Try again outdoors, or type your starting building.";
+      say(msg, true);
+    }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 });
+  }
+
+  function viewRoute() {
+    document.title = "Walking directions · CU Boulder Wayfinder";
+    const s = startPlace();
+    if (routeState.from == null && s && routable(s)) routeState.from = s.id;
+    const fromP = routeState.from != null ? byId.get(routeState.from) : null;
+    const toP = routeState.to != null ? byId.get(routeState.to) : null;
+    main.innerHTML =
+      '<section aria-labelledby="h-route"><p class="eyebrow">Directions</p><h1 id="h-route" tabindex="-1">Walking directions</h1>' +
+      '<p class="lead">Type where you are starting and where you are going. Pick each place from the suggestions, and route options with step-by-step directions appear right away.</p></section>' +
+      '<form class="route-form" id="route-form" novalidate aria-labelledby="h-route">' +
+      '<div class="combo"><label for="rt-from" id="rt-from-label">From</label>' +
+      '<input type="text" id="rt-from" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="rt-from-list" autocomplete="off" spellcheck="false" aria-describedby="rt-hint rt-from-err" value="' + (fromP ? esc(fromP.n) : "") + '"' + (fromP ? ' data-id="' + fromP.id + '"' : "") + ">" +
+      '<ul role="listbox" id="rt-from-list" aria-labelledby="rt-from-label" hidden></ul><p class="error" id="rt-from-err" hidden></p>' +
+      '<div class="actions"><button type="button" class="secondary" id="rt-locate" aria-describedby="rt-locate-hint">Use my location</button></div>' +
+      '<p class="hint" id="rt-locate-hint">Asks your browser for your location, then fills the From suggestions with the nearest buildings, closest first. Your location stays on this device.</p>' +
+      '<p id="rt-locate-status" hidden></p></div>' +
+      '<div class="combo"><label for="rt-to" id="rt-to-label">To</label>' +
+      '<input type="text" id="rt-to" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="rt-to-list" autocomplete="off" spellcheck="false" aria-describedby="rt-hint rt-to-err" value="' + (toP ? esc(toP.n) : "") + '"' + (toP ? ' data-id="' + toP.id + '"' : "") + ">" +
+      '<ul role="listbox" id="rt-to-list" aria-labelledby="rt-to-label" hidden></ul><p class="error" id="rt-to-err" hidden></p></div>' +
+      '<p class="hint" id="rt-hint">Type a building name, code, or service, such as "UMC", "Norlin", or "rec center". Use the up and down arrows to choose a suggestion.</p>' +
+      '<div class="actions"><button type="submit">Get directions</button><button type="button" class="secondary" id="rt-swap">Swap start and destination</button></div>' +
+      "</form>" +
+      '<details class="rs" id="rs"><summary>Route settings: <span id="rs-sum">' + esc(settingsSummary()) + "</span></summary>" +
+      '<div class="inner"><p class="hint">Choose how directions are worded and how much detail they include. Changes apply right away and are saved in this browser.</p>' + routeSettingsHTML("rs") + "</div></details>" +
+      '<div id="route-out"></div>';
+
+    const fromI = document.getElementById("rt-from"), toI = document.getElementById("rt-to");
+    const auto = () => { if (fromI.dataset.id && toI.dataset.id) runRoute(false); };
+    const showFrom = combobox(fromI, document.getElementById("rt-from-list"), p => { routeState.from = p.id; store.set("routeFrom", persistId(p.id)); announce("From: " + p.n + "."); auto(); });
+    combobox(toI, document.getElementById("rt-to-list"), p => { routeState.to = p.id; store.set("routeTo", persistId(p.id)); announce("To: " + p.n + "."); auto(); });
+    document.getElementById("rt-locate").addEventListener("click", () => locateMe(showFrom, document.getElementById("rt-locate-status")));
+    bindRouteSettings("rs", (key, label) => {
+      document.getElementById("rs-sum").textContent = settingsSummary();
+      if (!routeState.options) { announce(label + " selected."); return; }
+      if (key === "avoidStairs") { runRoute(false, true); announce(label + ". Route options updated."); return; }
+      if (key === "profile") selectOption(routeState.profile);
+      renderRouteDetail();
+      announce(label + " selected. Directions updated.");
+    });
+    document.getElementById("rt-swap").addEventListener("click", () => {
+      if (swapFields()) runRoute(false); else announce("Start and destination swapped.");
+    });
+    document.getElementById("route-form").addEventListener("submit", e => { e.preventDefault(); runRoute(true); });
+    if (fromP && toP) runRoute(false, true);
+  }
+
+  // Swap the From and To fields. Returns true when both fields hold a chosen place.
+  function swapFields() {
+    const fromI = document.getElementById("rt-from"), toI = document.getElementById("rt-to");
+    [fromI.value, toI.value] = [toI.value, fromI.value];
+    const a = fromI.dataset.id, b = toI.dataset.id;
+    if (b) fromI.dataset.id = b; else delete fromI.dataset.id;
+    if (a) toI.dataset.id = a; else delete toI.dataset.id;
+    routeState.from = b ? Number(b) : null; routeState.to = a ? Number(a) : null;
+    store.set("routeFrom", persistId(routeState.from)); store.set("routeTo", persistId(routeState.to));
+    return !!(a && b);
+  }
+
+  // Resolve typed text to a place: the chosen suggestion, else the best search match.
+  function resolveField(input, errId, label) {
+    const err = document.getElementById(errId);
+    err.hidden = true; err.textContent = ""; input.removeAttribute("aria-invalid");
+    if (input.dataset.id && byId.get(Number(input.dataset.id))) return byId.get(Number(input.dataset.id));
+    const q = input.value.trim();
+    const match = q ? routeSuggestions(q)[0] : null;
+    if (match) { input.value = match.n; input.dataset.id = match.id; return match; }
+    input.setAttribute("aria-invalid", "true");
+    err.hidden = false;
+    err.textContent = q ? "No campus place matches “" + q + "”. Try a building name or four-letter code." : "Enter a " + label + ".";
+    return null;
+  }
+
+  const minutes = m => { const n = Math.max(1, Math.round(m / 80)); return "about " + n + (n === 1 ? " minute" : " minutes"); };
+  function optionStats(o) {
+    const r = o.stats;
+    return fmtDist(r.total) + ", " + minutes(r.total) + ". " +
+      (r.stairs ? plural(r.stairs, "flight") + " of stairs" : "No stairs") + ", " +
+      (r.crossings ? plural(r.crossings, "street crossing") : "no street crossings") + ", " + plural(r.steps.length, "step") + ".";
+  }
+  // Select the option for a route type, following merges ("same route as ...").
+  function selectOption(id) {
+    const opts = routeState.options || [];
+    const o = opts.find(x => x.prof.id === id || x.also.some(p => p.id === id)) || opts[0];
+    routeState.selected = o;
+    const radio = o && document.getElementById("ro-" + o.prof.id);
+    if (radio) radio.checked = true;
+    return o;
+  }
+
+  function runRoute(moveFocus, quiet) {
+    const fromI = document.getElementById("rt-from"), toI = document.getElementById("rt-to");
+    const out = document.getElementById("route-out");
+    const A = resolveField(fromI, "rt-from-err", "starting place");
+    const B = resolveField(toI, "rt-to-err", "destination");
+    if (!A || !B) { (A ? toI : fromI).focus(); announce(document.querySelector(".error:not([hidden])").textContent); return; }
+    routeState.from = A.id; routeState.to = B.id; store.set("routeFrom", persistId(A.id)); store.set("routeTo", persistId(B.id));
+    routeState.options = null;
+    if (A === B || dist(A, B) < 10) {
+      out.innerHTML = '<section aria-labelledby="h-res"><h2 id="h-res" tabindex="-1">You are already there</h2><p>' + esc(A.n) + " and " + esc(B.n) + " are at the same spot.</p></section>";
+      if (moveFocus) document.getElementById("h-res").focus(); else announce("You are already there.");
+      return;
+    }
+    let opts = planOptions(A, B, routeState.avoidStairs), fellBack = false;
+    if (!opts.length && routeState.avoidStairs) { fellBack = true; opts = planOptions(A, B, false); }
+    if (!opts.length) {
+      out.innerHTML = '<section aria-labelledby="h-res"><h2 id="h-res" tabindex="-1">No walking route found</h2><p>The mapped paths do not connect these two places. Try the Google Maps link on either place’s page.</p></section>';
+      if (moveFocus) document.getElementById("h-res").focus(); else announce("No walking route found.");
+      return;
+    }
+    opts.forEach(o => { o.stats = describeRoute(A, B, o.path, "compass", "none"); });
+    Object.assign(routeState, { options: opts, A, B, fellBack });
+
+    out.innerHTML = '<div class="route-grid"><section aria-labelledby="h-res"><h2 id="h-res" tabindex="-1">Route from ' + esc(A.n) + " to " + esc(B.n) + "</h2>" +
+      (fellBack ? '<p class="error">There is no step-free path between these places in the map data, so these routes include stairs.</p>' : "") +
+      '<fieldset class="route-options"><legend>' + (opts.length === 1 ? "Route option" : "Choose a route: " + opts.length + " options") + "</legend>" +
+      opts.map(o => {
+        const also = o.also.length ? " This is also the " + o.also.map(p => p.name.toLowerCase()).join(" and the ") + " route." : "";
+        return '<div class="ropt"><label class="choice"><input type="radio" name="route-opt" id="ro-' + o.prof.id + '" value="' + o.prof.id + '" aria-describedby="ro-' + o.prof.id + '-d"> <span><strong>' + esc(o.prof.name) + "</strong>: " + esc(optionStats(o)) + "</span></label>" +
+          '<p class="hint" id="ro-' + o.prof.id + '-d">' + esc(o.prof.desc + also) + "</p></div>";
+      }).join("") +
+      (opts.missing && opts.missing.length ? '<p class="hint">No ' + opts.missing.map(p => p.name.toLowerCase()).join(" or ") + " route was found between these places in the map data.</p>" : "") +
+      "</fieldset>" +
+      '<div id="route-detail"></div></section><div id="route-plot"></div></div>';
+
+    out.querySelectorAll('input[name="route-opt"]').forEach(r => r.addEventListener("change", e => {
+      selectOption(e.target.value);
+      renderRouteDetail();
+      const o = routeState.selected;
+      announce(o.prof.name + " route: " + optionStats(o) + " Directions updated below.");
+    }));
+    selectOption(routeState.profile);
+    renderRouteDetail();
+    const o = routeState.selected;
+    if (moveFocus) document.getElementById("h-res").focus();
+    else if (!quiet) announce("Route ready. " + plural(opts.length, "route option") + ". Showing " + o.prof.name + ": " + optionStats(o));
+  }
+
+  // Render the chosen option's directions in the current style and detail level. Focus stays where it is.
+  function renderRouteDetail() {
+    const { A, B, selected: o } = routeState;
+    const box = document.getElementById("route-detail");
+    if (!o || !box) return;
+    const r = describeRoute(A, B, o.path, routeState.style, routeState.verb);
+    o.r = r;
+    const junctionNote = (routeState.verb === "all" || routeState.verb === "paths") && r.junctions ? " You pass " + plural(r.junctions, "junction") + " with other paths, each described under its step." : "";
+    const summary = "Showing the " + o.prof.name.toLowerCase() + " route. " + optionStats(o) + junctionNote;
+    const n = r.steps.length;
+    // Never put the viewer's own position in a link: without an origin, Google Maps starts from the device's location itself.
+    const gUrl = "https://www.google.com/maps/dir/?api=1" + (A.here ? "" : "&origin=" + A.la + "," + A.ln) + (B.here ? "" : "&destination=" + B.la + "," + B.ln) + "&travelmode=walking";
+    const aboutLinks = [A, B].filter(p => !p.here).map(p => '<li><a href="#p-' + p.id + '">About ' + esc(p.n) + "</a></li>").join("");
+    box.innerHTML =
+      '<p class="route-summary">' + esc(summary) + "</p>" +
+      (routeState.style !== "relative" ? '<p class="hint">Compass tip: the foothills and Flatirons rise to the west of campus, and the Boulder Valley opens to the east.</p>' : "") +
+      '<h3 id="h-orient">Where you start</h3><ul class="orient" aria-labelledby="h-orient">' + r.orient.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" +
+      '<h3 id="h-steps">Directions, ' + plural(n, "step") + "</h3>" +
+      '<div class="steps">' + r.steps.map((st, i) =>
+        '<section class="step' + (st.stairs ? " step-stairs" : "") + '" aria-labelledby="st-' + (i + 1) + '">' +
+        '<span class="step-badge" aria-hidden="true">' + (i + 1) + "</span>" +
+        '<div><h4 id="st-' + (i + 1) + '"><span class="step-num">Step ' + (i + 1) + " of " + n + '<span class="sr-only">:</span></span> <span class="step-text">' + esc(st.text) + "</span></h4>" +
+        (st.details.length ? '<ul class="along" aria-label="Along the way, step ' + (i + 1) + '">' + st.details.map(d => "<li>" + esc(d) + "</li>").join("") + "</ul>" : "") +
+        "</div></section>").join("") + "</div>" +
+      '<div class="actions"><button type="button" id="rt-return">Show the return trip</button><button type="button" class="secondary" id="rt-copy">Copy directions</button></div>' +
+      '<p class="hint" id="rt-copy-fb" hidden></p>' +
+      '<ul style="margin:0;padding-left:1.2rem;display:grid;gap:0.3rem">' + aboutLinks +
+      '<li><a href="' + esc(gUrl) + '" target="_blank" rel="noopener">Same trip in Google Maps (opens in a new tab)</a></li></ul>' +
+      '<p class="hint">Routes follow walkways, sidewalks, stairs, and crosswalks from OpenStreetMap. Doors are used where OpenStreetMap has them mapped. Routes do not know about construction closures or locked doors, so listen for your surroundings and double-check near the end. Distances to buildings are measured to their centers.</p>';
+    document.getElementById("route-plot").innerHTML = routePlot(A, B, o.path);
+
+    document.getElementById("rt-return").addEventListener("click", () => { swapFields(); runRoute(true); });
+    document.getElementById("rt-copy").addEventListener("click", () => {
+      const text = "Walking directions from " + A.n + " to " + B.n + "\n" + summary + "\n\nWhere you start:\n" + r.orient.map(x => "  - " + x).join("\n") +
+        "\n\nSteps:\n" + r.steps.map((st, i) => (i + 1) + ". " + st.text + st.details.map(d => "\n    - " + d).join("")).join("\n");
+      const fb = document.getElementById("rt-copy-fb");
+      const fail = () => { fb.hidden = false; fb.textContent = "Copy did not work in this browser. Select the steps above and copy them instead."; announce(fb.textContent); };
+      try { navigator.clipboard.writeText(text).then(() => announce("Directions copied."), fail); } catch (err) { fail(); }
+    });
+  }
+
+  // Visual route sketch for sighted helpers; the steps list carries the same information.
+  function routePlot(A, B, path) {
+    const ll = path.nodes.map(i => ({ la: NET.lat[i], ln: NET.lng[i] }));
+    const all = ll.concat([path.start, path.end]);
+    const kx = Math.cos(rad(40.007));
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    all.forEach(q => { const x = q.ln * kx, y = -q.la; minX = Math.min(minX, x); maxX = Math.max(maxX, x); minY = Math.min(minY, y); maxY = Math.max(maxY, y); });
+    const padX = (maxX - minX) * 0.15 + 0.0004, padY = (maxY - minY) * 0.15 + 0.0004;
+    minX -= padX; maxX += padX; minY -= padY; maxY += padY;
+    const W = 300, H = 300, sc = Math.min(W / (maxX - minX), H / (maxY - minY));
+    const ox = (W - (maxX - minX) * sc) / 2, oy = (H - (maxY - minY) * sc) / 2;
+    const P = q => [ox + (q.ln * kx - minX) * sc, oy + (-q.la - minY) * sc];
+    let s = "";
+    buildings.forEach(b => {
+      const x = b.ln * kx, y = -b.la;
+      if (x < minX || x > maxX || y < minY || y > maxY || b === A || b === B) return;
+      const [px, py] = P(b); s += '<circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="2.6" fill="var(--dot)"/>';
+    });
+    s += '<polyline points="' + ll.map(q => P(q).map(v => v.toFixed(1)).join(",")).join(" ") + '" fill="none" stroke="var(--accent)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>';
+    const [ax, ay] = P(path.start), [bx, by] = P(path.end);
+    s += '<rect x="' + (ax - 6).toFixed(1) + '" y="' + (ay - 6).toFixed(1) + '" width="12" height="12" fill="var(--surface)" stroke="var(--focus)" stroke-width="3"/>';
+    s += '<circle cx="' + bx.toFixed(1) + '" cy="' + by.toFixed(1) + '" r="7" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>';
+    return '<figure class="plot" aria-hidden="true" style="margin:0"><svg viewBox="0 0 ' + W + " " + H + '" focusable="false">' +
+      '<text x="' + (W - 16) + '" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="var(--muted)" font-family="var(--sans)">N</text>' +
+      '<path d="M' + (W - 16) + ' 28 l-5 12 h10 z" fill="var(--muted)"/>' + s + "</svg>" +
+      "<figcaption>The blue square is " + esc(A.n) + ", the red dot is " + esc(B.n) + ", and the red line is the walking route. Gray dots are other buildings. North is up.</figcaption></figure>";
+  }
+
+  function goRoute(fromId, toId) {
+    if (fromId !== undefined) { routeState.from = fromId; store.set("routeFrom", persistId(fromId)); }
+    if (toId !== undefined) { routeState.to = toId; store.set("routeTo", toId); }
+    if (location.hash === "#route") route(false); else location.hash = "route";
+  }
+
+  // ---------- Router ----------
+  function setNav(key) {
+    document.querySelectorAll("[data-nav]").forEach(a => {
+      if (a.dataset.nav === key) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+  }
+  let first = true;
+  function route(quiet) {
+    const hash = location.hash.replace(/^#/, "");
+    let focusEl = null, nav = "home";
+    let m;
+    if ((m = hash.match(/^p-(\d+)$/)) && byId.get(Number(m[1]))) {
+      viewPlace(byId.get(Number(m[1]))); nav = "";
+    } else if ((m = hash.match(/^m-(\d+)$/)) && cats.get(Number(m[1]))) {
+      viewLayer(cats.get(Number(m[1])));
+    } else if (hash === "route") {
+      viewRoute(); nav = "route";
+    } else if (hash === "settings") {
+      viewSettings(); nav = "settings";
+    } else if (hash === "search") {
+      focusEl = viewHome(true); nav = "search";
+    } else {
+      viewHome(false);
+    }
+    setNav(nav);
+    if (quiet) return;
+    window.scrollTo(0, 0);
+    if (first) { first = false; if (!hash) return; }
+    (focusEl || main.querySelector("h1")).focus();
+  }
+  window.addEventListener("hashchange", () => route(false));
+  // The skip link moves focus without changing the page route.
+  document.getElementById("skip-link").addEventListener("click", e => { e.preventDefault(); main.focus(); });
+  renderStartBar();
+  route(false);
+})();
+</script>
